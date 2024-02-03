@@ -30,7 +30,7 @@ fun isDoubleClick(): Boolean {
 
 // region Int Text를 ###,### 포맷팅 하는 바인딩 아답터
 @BindingAdapter("android:formattedText")
-fun setFormattedText(view: TextView, value: Int) {
+fun setFormattedText(view: TextView, value: Long) {
     val formattedValue = DecimalFormat("###,###").format(value)
     view.text = formattedValue
 }

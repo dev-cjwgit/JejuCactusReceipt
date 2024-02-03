@@ -35,8 +35,9 @@ abstract class BaseRecyclerViewAdapter<BIND : ViewDataBinding, DTO>(
     }
 
     fun clear() {
+        val count = items.size
         items.clear()
-        notifyItemRangeRemoved(0, itemCount)
+        notifyItemRangeRemoved(0, count)
     }
 
     fun add(data: DTO) {

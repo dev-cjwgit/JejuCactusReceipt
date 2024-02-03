@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentMainBinding
+import com.cjwgit.jejucactusreceipt.ui.adapter.CactusBasketRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentUiState
@@ -24,8 +25,16 @@ class MainFragment : Fragment() {
     private val viewModel: MainFragmentVM by viewModels()
 
 
-    private val cactusRecyclerViewAdapter = CactusRecyclerViewAdapter { clickItem ->
-        viewModel.setCactusItem(clickItem)
+    private val cactusRecyclerViewAdapter by lazy {
+        CactusRecyclerViewAdapter { clickItem ->
+            viewModel.setCactusItem(clickItem)
+        }
+    }
+
+    private val cactusBasketRecyclerViewAdapter by lazy {
+        CactusBasketRecyclerViewAdapter { removeItem ->
+            viewModel.removeBasketItem(removeItem)
+        }
     }
 
     override fun onCreateView(
@@ -36,9 +45,11 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
+        binding.basketRecyclerViewAdapter = cactusBasketRecyclerViewAdapter
         binding.lifecycleOwner = viewLifecycleOwner
         init()
 
+        activity?.title = "제주농원 영수증 화면"
         return binding.root
     }
 
@@ -57,6 +68,14 @@ class MainFragment : Fragment() {
                             cactusRecyclerViewAdapter.initData(state.data.toMutableList())
                         }
 
+                        is MainFragmentUiState.AddBasketCactus -> {
+                            cactusBasketRecyclerViewAdapter.add(state.data)
+                        }
+
+                        is MainFragmentUiState.ClearBasketList -> {
+                            cactusBasketRecyclerViewAdapter.clear()
+                        }
+
                         else -> {
 
                         }
@@ -73,9 +92,16 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val recyclerView = binding.cactusRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.setHasFixedSize(true)
+        val cactusRecyclerView = binding.cactusRecyclerView
+        cactusRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        cactusRecyclerView.animation = null
+        cactusRecyclerView.setHasFixedSize(true)
+
+
+        val basketRecyclerView = binding.basketRecyclerView
+        basketRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        basketRecyclerView.animation = null
+        basketRecyclerView.setHasFixedSize(true)
     }
 
     private fun showMessage(message: String) {
@@ -89,7 +115,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.resetUiState()
+        viewModel.clearViewData()
         _binding = null
     }
 }

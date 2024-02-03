@@ -4,6 +4,7 @@ data class CactusBasketVO(
     val uid: Long,
     val name: String,
     val price: Int,
-    val total: Int,
+    val boxCount: Int,
+    val total: Long,
 
 )

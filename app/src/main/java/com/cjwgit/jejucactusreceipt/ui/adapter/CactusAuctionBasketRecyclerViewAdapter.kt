@@ -3,14 +3,14 @@ package com.cjwgit.jejucactusreceipt.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
-import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusBasketBinding
-import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
+import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusAuctionBasketBinding
+import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
 import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
 
-class CactusBasketRecyclerViewAdapter(
-    private val onRemoveClick: (item: CactusBasketVO) -> Unit,
+class CactusAuctionBasketRecyclerViewAdapter(
+    private val onRemoveClick: (item: CactusAuctionBasketVO) -> Unit,
 ) :
-    BaseRecyclerViewAdapter<TemplateCactusBasketBinding, CactusBasketVO>(
+    BaseRecyclerViewAdapter<TemplateCactusAuctionBasketBinding, CactusAuctionBasketVO>(
         mutableListOf()
     ) {
     init {
@@ -20,10 +20,10 @@ class CactusBasketRecyclerViewAdapter(
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<TemplateCactusBasketBinding> {
+    ): BaseRecyclerViewHolder<TemplateCactusAuctionBasketBinding> {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.template_cactus_basket, viewGroup, false)
-        val bind = TemplateCactusBasketBinding.bind(view)
+            .inflate(R.layout.template_cactus_auction_basket, viewGroup, false)
+        val bind = TemplateCactusAuctionBasketBinding.bind(view)
         val holder = BaseRecyclerViewHolder(bind)
         view.setOnLongClickListener {
             onRemoveClick.invoke(getItem(holder.adapterPosition))
@@ -34,7 +34,7 @@ class CactusBasketRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: BaseRecyclerViewHolder<TemplateCactusBasketBinding>,
+        holder: BaseRecyclerViewHolder<TemplateCactusAuctionBasketBinding>,
         position: Int
     ) {
         val items = getItems()

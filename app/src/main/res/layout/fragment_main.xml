@@ -68,6 +68,39 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="이름"
+                    android:textColor="@color/blueFacebook"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="가격"
+                    android:textColor="@color/blueFacebook"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cactusRecyclerView"
@@ -77,7 +110,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/dial_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <include
                 layout="@layout/layout_classic_dial_button"
@@ -105,25 +138,84 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="1"
+                    android:formattedText="@{viewModel.basketTotalBoxCount}"
                     android:gravity="center"
+                    android:textColor="@color/blueFacebook"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:formattedText="@{viewModel.basketTotalPrice}"
+                    android:gravity="center"
                     android:textColor="@color/blueFacebook"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="20">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="7.5"
+                    android:gravity="center"
+                    android:text="이름"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="4.5"
+                    android:gravity="center"
+                    android:text="단가"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:text="박스"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="5.5"
+                    android:gravity="center"
+                    android:text="총합"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/basketRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="20" />
+                android:layout_weight="20"
+                android:adapter="@{basketRecyclerViewAdapter}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,9 +225,12 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="1"
+                    android:background="@color/blueFacebook"
+                    android:onClickPrevent="@{() -> viewModel.clearBasket()}"
                     android:text="초기화"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <Button
@@ -144,7 +239,9 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_weight="1"
+                    android:background="@color/blueFacebook"
                     android:text="인쇄하기"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
