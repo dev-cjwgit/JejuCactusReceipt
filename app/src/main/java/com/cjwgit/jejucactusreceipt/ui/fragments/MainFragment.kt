@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentMainBinding
+import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM
@@ -21,6 +23,11 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainFragmentVM by viewModels()
 
+
+    private val cactusRecyclerViewAdapter = CactusRecyclerViewAdapter { clickItem ->
+        viewModel.setCactusItem(clickItem)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +35,10 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
         binding.lifecycleOwner = viewLifecycleOwner
+        init()
+
         return binding.root
     }
 
@@ -42,10 +52,30 @@ class MainFragment : Fragment() {
                         is MainFragmentUiState.ShowMessage -> {
                             showMessage(state.message)
                         }
+
+                        is MainFragmentUiState.SetCactusList -> {
+                            cactusRecyclerViewAdapter.initData(state.data.toMutableList())
+                        }
+
+                        else -> {
+
+                        }
                     }
                 }
             }
         }
+
+        viewModel.init()
+    }
+
+    private fun init() {
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val recyclerView = binding.cactusRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.setHasFixedSize(true)
     }
 
     private fun showMessage(message: String) {
@@ -59,6 +89,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.resetUiState()
         _binding = null
     }
 }

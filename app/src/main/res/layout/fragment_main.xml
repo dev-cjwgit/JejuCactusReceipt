@@ -8,6 +8,14 @@
         <variable
             name="viewModel"
             type="com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM" />
+
+        <variable
+            name="cactusRecyclerViewAdapter"
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter" />
+
+        <variable
+            name="basketRecyclerViewAdapter"
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusBasketRecyclerViewAdapter" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -32,9 +40,19 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1.5"
                     android:gravity="center"
+                    android:text="@{viewModel.selectItemNameText}"
+                    android:textColor="@color/blueFacebook"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="@{viewModel.selectItemPriceText}"
                     android:textColor="@color/blueFacebook"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -44,7 +62,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@{viewModel.numberText}"
+                    android:text="@{viewModel.countText}"
                     android:textColor="@color/blueFacebook"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -55,10 +73,11 @@
                 android:id="@+id/cactusRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="20"
+                android:adapter="@{cactusRecyclerViewAdapter}"
                 app:layout_constraintBottom_toTopOf="@+id/dial_button"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
 
             <include
                 layout="@layout/layout_classic_dial_button"
