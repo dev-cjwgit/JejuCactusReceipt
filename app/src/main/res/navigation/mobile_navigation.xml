@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.HomeFragment"
+        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.MainFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_main" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.AuctionFragment"
+        android:label="@string/title_auction"
+        tools:layout="@layout/fragment_auction" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.cjwgit.jejucactusreceipt.ui.fragments.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:label="@string/title_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

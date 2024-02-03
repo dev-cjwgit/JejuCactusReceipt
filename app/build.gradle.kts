@@ -36,12 +36,15 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    val naviKtxVersion = "2.7.6"
+    implementation("androidx.navigation:navigation-fragment-ktx:$naviKtxVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$naviKtxVersion")
+
     val ktxMainVersion = "1.12.0"
     implementation("androidx.core:core-ktx:$ktxMainVersion")
 
