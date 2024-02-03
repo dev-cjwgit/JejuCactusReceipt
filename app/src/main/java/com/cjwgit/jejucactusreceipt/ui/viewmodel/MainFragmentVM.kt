@@ -80,7 +80,6 @@ class MainFragmentVM : DialButtonVM() {
         } finally {
             resetUiState()
         }
-//        clearViewData()
     }
 
 

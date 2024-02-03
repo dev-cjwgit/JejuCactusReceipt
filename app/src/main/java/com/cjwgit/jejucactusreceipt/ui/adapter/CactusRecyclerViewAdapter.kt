@@ -8,10 +8,14 @@ import com.cjwgit.jejucactusreceipt.domain.CactusEntity
 import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
 
 class CactusRecyclerViewAdapter(
-    private val onClickListener: (item: CactusEntity) -> Unit,
 ) : BaseRecyclerViewAdapter<TemplateCactusBinding, CactusEntity>(
     mutableListOf()
 ) {
+    private lateinit var onClickListener: (item: CactusEntity) -> Unit
+
+    fun setOnClickListener(listener: (item: CactusEntity) -> Unit) {
+        onClickListener = listener
+    }
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int

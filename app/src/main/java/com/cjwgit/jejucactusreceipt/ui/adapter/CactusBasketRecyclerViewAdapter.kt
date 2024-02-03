@@ -8,13 +8,18 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
 
 class CactusBasketRecyclerViewAdapter(
-    private val onRemoveClick: (item: CactusBasketVO) -> Unit,
 ) :
     BaseRecyclerViewAdapter<TemplateCactusBasketBinding, CactusBasketVO>(
         mutableListOf()
     ) {
+    private lateinit var onRemoveClick: (item: CactusBasketVO) -> Unit
+
     init {
-        println("")
+        println("이건 한 번만 호출이 되는데")
+    }
+
+    fun setOnRemoveClickListener(listener: (item: CactusBasketVO) -> Unit) {
+        onRemoveClick = listener
     }
 
     override fun onCreateViewHolder(

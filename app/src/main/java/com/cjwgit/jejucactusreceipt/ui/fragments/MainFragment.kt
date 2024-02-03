@@ -24,18 +24,16 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainFragmentVM by viewModels()
 
+    companion object {
+        private val cactusRecyclerViewAdapter by lazy {
+            CactusRecyclerViewAdapter()
+        }
 
-    private val cactusRecyclerViewAdapter by lazy {
-        CactusRecyclerViewAdapter { clickItem ->
-            viewModel.setCactusItem(clickItem)
+        private val cactusBasketRecyclerViewAdapter by lazy {
+            CactusBasketRecyclerViewAdapter()
         }
     }
 
-    private val cactusBasketRecyclerViewAdapter by lazy {
-        CactusBasketRecyclerViewAdapter { removeItem ->
-            viewModel.removeBasketItem(removeItem)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +42,16 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+
         binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
+        cactusRecyclerViewAdapter.setOnClickListener { clickItem ->
+            viewModel.setCactusItem(clickItem)
+        }
         binding.basketRecyclerViewAdapter = cactusBasketRecyclerViewAdapter
+        cactusBasketRecyclerViewAdapter.setOnRemoveClickListener { removeItem ->
+            viewModel.removeBasketItem(removeItem)
+        }
+
         binding.lifecycleOwner = viewLifecycleOwner
         init()
 
@@ -115,7 +121,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.clearViewData()
+        viewModel.resetUiState()
         _binding = null
     }
 }

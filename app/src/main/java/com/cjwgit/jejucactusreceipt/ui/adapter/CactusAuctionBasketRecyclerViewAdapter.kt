@@ -7,12 +7,20 @@ import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusAuctionBasketBindi
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
 import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
 
-class CactusAuctionBasketRecyclerViewAdapter(
-    private val onRemoveClick: (item: CactusAuctionBasketVO) -> Unit,
-) :
+class CactusAuctionBasketRecyclerViewAdapter :
     BaseRecyclerViewAdapter<TemplateCactusAuctionBasketBinding, CactusAuctionBasketVO>(
         mutableListOf()
     ) {
+    private lateinit var onRemoveClick: (item: CactusAuctionBasketVO) -> Unit
+
+    init {
+        println("이건 왜 계속 호출 되냐고")
+    }
+
+    fun setOnRemoveClickListener(listener: (item: CactusAuctionBasketVO) -> Unit) {
+        onRemoveClick = listener
+    }
+
     init {
         println("")
     }

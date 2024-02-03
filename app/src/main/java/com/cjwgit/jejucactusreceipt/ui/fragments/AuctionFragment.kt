@@ -24,15 +24,13 @@ class AuctionFragment : Fragment() {
 
     private val viewModel: AuctionFragmentVM by viewModels()
 
-    private val cactusRecyclerViewAdapter by lazy {
-        CactusAuctionRecyclerViewAdapter { clickItem ->
-            viewModel.setCactusItem(clickItem)
+    companion object {
+        private val cactusRecyclerViewAdapter by lazy {
+            CactusAuctionRecyclerViewAdapter()
         }
-    }
 
-    private val cactusBasketRecyclerViewAdapter by lazy {
-        CactusAuctionBasketRecyclerViewAdapter { removeItem ->
-            viewModel.removeBasketItem(removeItem)
+        private val cactusBasketRecyclerViewAdapter by lazy {
+            CactusAuctionBasketRecyclerViewAdapter()
         }
     }
 
@@ -44,7 +42,16 @@ class AuctionFragment : Fragment() {
         _binding = FragmentAuctionBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
+
+        cactusRecyclerViewAdapter.setOnClickListener { clickItem ->
+            viewModel.setCactusItem(clickItem)
+        }
+
         binding.basketRecyclerViewAdapter = cactusBasketRecyclerViewAdapter
+        cactusBasketRecyclerViewAdapter.setOnRemoveClickListener { removeItem ->
+            viewModel.removeBasketItem(removeItem)
+        }
+
         binding.lifecycleOwner = viewLifecycleOwner
         init()
 
