@@ -108,6 +108,10 @@ class AuctionFragmentVM : DialButtonVM() {
         resetUiState()
     }
 
+    fun print() {
+
+    }
+
     override fun click(number: Int) {
         println("숫자 클릭 : $number")
         try {

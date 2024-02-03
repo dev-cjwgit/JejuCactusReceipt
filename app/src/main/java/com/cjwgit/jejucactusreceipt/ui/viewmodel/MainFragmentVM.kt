@@ -66,7 +66,7 @@ class MainFragmentVM : DialButtonVM() {
 
     private fun getCactusList(): List<CactusEntity> {
         return listOf(
-            CactusEntity(0, "선인장1", 10000),
+            CactusEntity(0, "커다란 용심목 씨앗", 10000),
             CactusEntity(1, "선인장2", 20000),
             CactusEntity(2, "선인장3", 30000),
         )
@@ -112,7 +112,9 @@ class MainFragmentVM : DialButtonVM() {
         resetUiState()
     }
 
+    fun print(){
 
+    }
     override fun click(number: Int) {
         try {
             println("숫자 클릭 : $number")

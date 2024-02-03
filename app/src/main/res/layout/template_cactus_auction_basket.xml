@@ -20,37 +20,41 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="9"
+            android:layout_weight="7.5"
             android:gravity="center"
             android:text="@{item.name}"
-            android:textSize="10sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="3"
-            android:formattedText="@{item.amount}"
-            android:gravity="center"
-            android:textSize="10sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="3.5"
-            android:formattedText="@{item.boxCount}"
-            android:gravity="center"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_weight="4.5"
+            android:formattedText="@{item.amount}"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="2.5"
+            android:formattedText="@{item.boxCount}"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="5.5"
             android:formattedText="@{item.price}"
             android:gravity="center"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </layout>
