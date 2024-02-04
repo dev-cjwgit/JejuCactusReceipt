@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.NotificationsFragment"
+        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.SettingFragment"
         android:label="@string/title_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>
