@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/CustomActionBarTheme">
         <activity
+            android:name=".ui.layout.CactusPrintFormLayout"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>

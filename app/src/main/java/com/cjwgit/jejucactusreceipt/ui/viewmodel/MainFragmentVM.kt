@@ -11,6 +11,7 @@ import java.text.DecimalFormat
 
 sealed class MainFragmentUiState {
     data object Nothing : MainFragmentUiState()
+    data object PrintBasket : MainFragmentUiState()
 
     data object ClearBasketList : MainFragmentUiState()
     data class ShowMessage(val message: String) : MainFragmentUiState()
@@ -112,9 +113,14 @@ class MainFragmentVM : DialButtonVM() {
         resetUiState()
     }
 
-    fun print(){
-
+    fun print() {
+        try {
+            _uiState.value = MainFragmentUiState.PrintBasket
+        } finally {
+            resetUiState()
+        }
     }
+
     override fun click(number: Int) {
         try {
             println("숫자 클릭 : $number")
@@ -158,9 +164,14 @@ class MainFragmentVM : DialButtonVM() {
                         return
                     }
 
+                    if(basketCount >= 23){
+                        _uiState.value = MainFragmentUiState.ShowMessage("23개 이상은 담을 수 없습니다.")
+                        return
+                    }
+
                     val cactus = selectionCactusItem!!
                     val price = cactus.price
-                    val count = countText.value!!.toInt()
+                    val count = countText.value!!.toLong()
                     val total = price * count.toLong()
                     _uiState.value = MainFragmentUiState.AddBasketCactus(
                         CactusBasketVO(

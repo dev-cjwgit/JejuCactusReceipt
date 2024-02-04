@@ -2,6 +2,8 @@ plugins {
     id("kotlin-kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -62,5 +64,5 @@ dependencies {
 
     runtimeOnly("androidx.activity:activity-ktx:1.8.2")
     runtimeOnly("androidx.fragment:fragment-ktx:1.6.2")
-
+    
 }

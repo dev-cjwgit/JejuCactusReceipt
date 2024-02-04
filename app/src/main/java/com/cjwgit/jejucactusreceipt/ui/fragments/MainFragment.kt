@@ -1,5 +1,6 @@
 package com.cjwgit.jejucactusreceipt.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.cjwgit.jejucactusreceipt.databinding.FragmentMainBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusBasketRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
+import com.cjwgit.jejucactusreceipt.ui.layout.CactusPrintFormLayout
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM
 import kotlinx.coroutines.launch
@@ -82,6 +84,10 @@ class MainFragment : Fragment() {
                             cactusBasketRecyclerViewAdapter.clear()
                         }
 
+                        is MainFragmentUiState.PrintBasket -> {
+                            printBasket()
+                        }
+
                         else -> {
 
                         }
@@ -91,6 +97,15 @@ class MainFragment : Fragment() {
         }
 
         viewModel.init()
+    }
+
+    private fun printBasket() {
+        val intent = Intent(requireContext(), CactusPrintFormLayout::class.java)
+        intent.putParcelableArrayListExtra(
+            "items",
+            ArrayList(cactusBasketRecyclerViewAdapter.getItems())
+        )
+        startActivity(intent)
     }
 
     private fun init() {

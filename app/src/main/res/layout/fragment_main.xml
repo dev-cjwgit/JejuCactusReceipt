@@ -241,6 +241,7 @@
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
                     android:text="인쇄하기"
+                    android:onClickPrevent="@{() -> viewModel.print()}"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
             </LinearLayout>

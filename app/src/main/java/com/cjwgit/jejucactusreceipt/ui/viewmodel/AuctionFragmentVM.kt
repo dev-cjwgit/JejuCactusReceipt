@@ -156,7 +156,7 @@ class AuctionFragmentVM : DialButtonVM() {
                     }
 
                     val cactus = selectionCactusItem!!
-                    val count = countText.value!!.toInt()
+                    val count = countText.value!!.toLong()
                     _uiState.value = AuctionFragmentUiState.AddBasketCactus(
                         CactusAuctionBasketVO(
                             cactus.uid,

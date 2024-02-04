@@ -21,7 +21,7 @@ private const val doubleClickInterval: Long = 150 // 더블 클릭 간격 (밀�
 fun isDoubleClick(): Boolean {
     val currentTime = System.currentTimeMillis()
     val elapsedTime = currentTime - lastClickTime
-    if(elapsedTime >= doubleClickInterval)
+    if (elapsedTime >= doubleClickInterval)
         lastClickTime = currentTime
     return elapsedTime < doubleClickInterval
 }
@@ -32,5 +32,6 @@ fun isDoubleClick(): Boolean {
 @BindingAdapter("android:formattedText")
 fun setFormattedText(view: TextView, value: Long) {
     val formattedValue = DecimalFormat("###,###").format(value)
-    view.text = formattedValue
+    if (formattedValue != "0")
+        view.text = formattedValue
 }
