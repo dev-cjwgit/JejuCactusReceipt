@@ -14,32 +14,33 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.print.PrintHelper
-import com.cjwgit.jejucactusreceipt.databinding.LayoutCactusPrintFormBinding
-import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintUiState
+import com.cjwgit.jejucactusreceipt.databinding.LayoutAuctionPrintFormBinding
+import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintFormVM
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintUiState
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class CactusAuctionPrintFormLayout : AppCompatActivity() {
-    private lateinit var binding: LayoutCactusPrintFormBinding
-    private val viewModel: CactusPrintFormVM by viewModels()
+    private lateinit var binding: LayoutAuctionPrintFormBinding
+    private val viewModel: CactusAuctionPrintFormVM by viewModels()
 
     private var one = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutCactusPrintFormBinding.inflate(layoutInflater)
+        binding = LayoutAuctionPrintFormBinding.inflate(layoutInflater)
 
-        val basketItems = intent.getParcelableArrayListExtra("items", CactusBasketVO::class.java)
+        val basketItems =
+            intent.getParcelableArrayListExtra("items", CactusAuctionBasketVO::class.java)
         binding.viewModel = viewModel
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.observe(this@CactusAuctionPrintFormLayout) { state ->
                     when (state) {
-                        is CactusPrintUiState.Print -> {
+                        is CactusAuctionPrintUiState.Print -> {
                             printBasket()
                         }
 
@@ -56,7 +57,7 @@ class CactusAuctionPrintFormLayout : AppCompatActivity() {
 
             for (i in 0 until paddingItemSize) {
                 basketItems.add(
-                    CactusBasketVO(
+                    CactusAuctionBasketVO(
                         start + i + 1L,
                         "",
                         0L,
@@ -103,7 +104,7 @@ class CactusAuctionPrintFormLayout : AppCompatActivity() {
         }
     }
 
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(

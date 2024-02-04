@@ -32,6 +32,8 @@ fun isDoubleClick(): Boolean {
 @BindingAdapter("android:formattedText")
 fun setFormattedText(view: TextView, value: Long) {
     val formattedValue = DecimalFormat("###,###").format(value)
-    if (formattedValue != "0")
+    if (formattedValue == "0")
+        view.text = ""
+    else
         view.text = formattedValue
 }

@@ -1,9 +1,13 @@
 package com.cjwgit.jejucactusreceipt.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CactusAuctionBasketVO(
     val uid: Long,
     val name: String,
-    val boxCount: Long,
     val amount: Long,
+    val boxCount: Long,
     val price: Long,
-)
+) : Parcelable

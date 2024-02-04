@@ -164,8 +164,8 @@ class MainFragmentVM : DialButtonVM() {
                         return
                     }
 
-                    if(basketCount >= 23){
-                        _uiState.value = MainFragmentUiState.ShowMessage("23개 이상은 담을 수 없습니다.")
+                    if(basketCount >= 24){
+                        _uiState.value = MainFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
                         return
                     }
 

@@ -11,8 +11,9 @@ import java.text.DecimalFormat
 
 sealed class AuctionFragmentUiState {
     data object Nothing : AuctionFragmentUiState()
-    data object ClearBasketList : AuctionFragmentUiState()
+    data object PrintBasket : AuctionFragmentUiState()
 
+    data object ClearBasketList : AuctionFragmentUiState()
     data class ShowMessage(val message: String) : AuctionFragmentUiState()
     data class SetCactusList(val data: List<CactusAuctionEntity>) : AuctionFragmentUiState()
     data class AddBasketCactus(val data: CactusAuctionBasketVO) : AuctionFragmentUiState()
@@ -109,7 +110,11 @@ class AuctionFragmentVM : DialButtonVM() {
     }
 
     fun print() {
-
+        try {
+            _uiState.value = AuctionFragmentUiState.PrintBasket
+        } finally {
+            resetUiState()
+        }
     }
 
     override fun click(number: Int) {
@@ -152,6 +157,12 @@ class AuctionFragmentVM : DialButtonVM() {
 
                     if (countText.value?.length!! <= 0) {
                         _uiState.value = AuctionFragmentUiState.ShowMessage("수량을 입력해 주세요.")
+                        return
+                    }
+
+
+                    if(basketCount >= 24){
+                        _uiState.value = AuctionFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
                         return
                     }
 

@@ -16,6 +16,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.layout.CactusAuctionPrintFormLayout"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>

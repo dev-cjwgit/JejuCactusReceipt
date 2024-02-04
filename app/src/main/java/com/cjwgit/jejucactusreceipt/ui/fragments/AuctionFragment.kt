@@ -1,5 +1,6 @@
 package com.cjwgit.jejucactusreceipt.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.cjwgit.jejucactusreceipt.databinding.FragmentAuctionBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionBasketRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
+import com.cjwgit.jejucactusreceipt.ui.layout.CactusAuctionPrintFormLayout
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
 import kotlinx.coroutines.launch
@@ -82,6 +84,10 @@ class AuctionFragment : Fragment() {
                             cactusBasketRecyclerViewAdapter.clear()
                         }
 
+                        is AuctionFragmentUiState.PrintBasket -> {
+                            printBasket()
+                        }
+
                         else -> {
 
                         }
@@ -91,6 +97,15 @@ class AuctionFragment : Fragment() {
         }
 
         viewModel.init()
+    }
+
+    private fun printBasket() {
+        val intent = Intent(requireContext(), CactusAuctionPrintFormLayout::class.java)
+        intent.putParcelableArrayListExtra(
+            "items",
+            ArrayList(cactusBasketRecyclerViewAdapter.getItems())
+        )
+        startActivity(intent)
     }
 
     private fun init() {
