@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditAuctionBinding
+import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentVM
 
 class EditAuctionFragment : Fragment() {
@@ -14,6 +16,9 @@ class EditAuctionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: EditAuctionFragmentVM by viewModels()
+    private val cactusRecyclerViewAdapter by lazy {
+        CactusAuctionRecyclerViewAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,10 +27,23 @@ class EditAuctionFragment : Fragment() {
     ): View {
         _binding = FragmentEditAuctionBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
         binding.lifecycleOwner = viewLifecycleOwner
 
+        init()
 
         return binding.root
+    }
+
+    private fun init() {
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val cactusRecyclerView = binding.cactusRecyclerView
+        cactusRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        cactusRecyclerView.animation = null
+        cactusRecyclerView.setHasFixedSize(true)
     }
 
     override fun onResume() {
