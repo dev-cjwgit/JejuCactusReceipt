@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditCactusBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentVM
+import org.koin.android.ext.android.inject
 
 class EditCactusFragment : Fragment() {
     private var _binding: FragmentEditCactusBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EditCactusFragmentVM by viewModels()
+    private val viewModel: EditCactusFragmentVM by inject()
 
     private val cactusRecyclerViewAdapter by lazy {
         CactusRecyclerViewAdapter()

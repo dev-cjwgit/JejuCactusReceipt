@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditAuctionBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentVM
+import org.koin.android.ext.android.inject
 
 class EditAuctionFragment : Fragment() {
     private var _binding: FragmentEditAuctionBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EditAuctionFragmentVM by viewModels()
+    private val viewModel: EditAuctionFragmentVM by inject()
     private val cactusRecyclerViewAdapter by lazy {
         CactusAuctionRecyclerViewAdapter()
     }

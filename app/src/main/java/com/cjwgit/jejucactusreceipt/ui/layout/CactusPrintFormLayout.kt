@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,13 +18,14 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintUiState
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class CactusPrintFormLayout : AppCompatActivity() {
     private lateinit var binding: LayoutCactusPrintFormBinding
-    private val viewModel: CactusPrintFormVM by viewModels()
+    private val viewModel: CactusPrintFormVM by inject()
 
     private var one = false
 

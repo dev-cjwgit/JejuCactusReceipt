@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
+import com.cjwgit.jejucactusreceipt.model.TestModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -19,7 +20,9 @@ sealed class MainFragmentUiState {
     data class AddBasketCactus(val data: CactusBasketVO) : MainFragmentUiState()
 }
 
-class MainFragmentVM : DialButtonVM() {
+class MainFragmentVM(
+    private val testModel: TestModel
+) : DialButtonVM() {
     // 장바구니에 쌓인 아이템 개수
     private var basketCount = 0
 
@@ -164,7 +167,7 @@ class MainFragmentVM : DialButtonVM() {
                         return
                     }
 
-                    if(basketCount >= 24){
+                    if (basketCount >= 24) {
                         _uiState.value = MainFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
                         return
                     }

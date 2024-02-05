@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.cjwgit.jejucactusreceipt.databinding.FragmentSettingBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.ViewPagerAdapter
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.SettingFragmentVM
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.android.ext.android.inject
 
 class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SettingFragmentVM by viewModels()
+    private val viewModel: SettingFragmentVM by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
