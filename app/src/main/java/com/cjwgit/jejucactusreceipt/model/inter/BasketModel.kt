@@ -8,4 +8,6 @@ interface BasketModel<T> {
 
     fun getItems(): List<T>
     fun getItem(): T
+
+    fun clear()
 }
