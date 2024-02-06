@@ -7,11 +7,11 @@
 
         <import type="java.util.ArrayList" />
 
-        <import type="com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO" />
+        <import type="com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO" />
 
         <variable
             name="items"
-            type="ArrayList&lt;CactusAuctionBasketVO&gt;" />
+            type="ArrayList&lt;AuctionBasketVO&gt;" />
 
         <variable
             name="viewModel"

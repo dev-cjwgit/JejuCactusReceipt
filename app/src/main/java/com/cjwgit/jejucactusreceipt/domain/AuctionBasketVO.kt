@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CactusAuctionBasketVO(
+data class AuctionBasketVO(
     val uid: Long,
     val name: String,
     val amount: Long,

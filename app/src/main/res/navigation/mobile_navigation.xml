@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.MainFragment"
+        android:name="com.cjwgit.jejucactusreceipt.ui.fragments.CactusFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_cactus" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

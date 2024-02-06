@@ -5,29 +5,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
-import com.cjwgit.jejucactusreceipt.model.TestModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
-sealed class MainFragmentUiState {
-    data object Nothing : MainFragmentUiState()
-    data object PrintBasket : MainFragmentUiState()
+sealed class CactusFragmentUiState {
+    data object Nothing : CactusFragmentUiState()
+    data object PrintBasket : CactusFragmentUiState()
 
-    data object ClearBasketList : MainFragmentUiState()
-    data class ShowMessage(val message: String) : MainFragmentUiState()
-    data class SetCactusList(val data: List<CactusEntity>) : MainFragmentUiState()
-    data class AddBasketCactus(val data: CactusBasketVO) : MainFragmentUiState()
+    data object ClearBasketList : CactusFragmentUiState()
+    data class ShowMessage(val message: String) : CactusFragmentUiState()
+    data class SetCactusList(val data: List<CactusEntity>) : CactusFragmentUiState()
+    data class AddBasketCactus(val data: CactusBasketVO) : CactusFragmentUiState()
 }
 
-class MainFragmentVM(
-    private val testModel: TestModel
+class CactusFragmentVM(
+
 ) : DialButtonVM() {
     // 장바구니에 쌓인 아이템 개수
     private var basketCount = 0
 
-    private val _uiState = MutableLiveData<MainFragmentUiState>()
-    val uiState: LiveData<MainFragmentUiState> get() = _uiState
+    private val _uiState = MutableLiveData<CactusFragmentUiState>()
+    val uiState: LiveData<CactusFragmentUiState> get() = _uiState
 
     // 현재 입력된 박스 수량
     private val _countText = MutableLiveData("")
@@ -79,7 +78,7 @@ class MainFragmentVM(
     fun init() {
         try {
             viewModelScope.launch {
-                _uiState.postValue(MainFragmentUiState.SetCactusList(getCactusList()))
+                _uiState.postValue(CactusFragmentUiState.SetCactusList(getCactusList()))
             }
         } finally {
             resetUiState()
@@ -96,12 +95,12 @@ class MainFragmentVM(
     }
 
     fun resetUiState() {
-        _uiState.value = MainFragmentUiState.Nothing
+        _uiState.value = CactusFragmentUiState.Nothing
     }
 
     fun clearBasket() {
         try {
-            _uiState.value = MainFragmentUiState.ClearBasketList
+            _uiState.value = CactusFragmentUiState.ClearBasketList
             _basketTotalPrice.value = 0
             _basketTotalBoxCount.value = 0
             basketCount = 0
@@ -118,7 +117,7 @@ class MainFragmentVM(
 
     fun print() {
         try {
-            _uiState.value = MainFragmentUiState.PrintBasket
+            _uiState.value = CactusFragmentUiState.PrintBasket
         } finally {
             resetUiState()
         }
@@ -129,12 +128,12 @@ class MainFragmentVM(
             println("숫자 클릭 : $number")
             val currentText = _countText.value ?: ""
             if (currentText.length >= 5) {
-                _uiState.value = MainFragmentUiState.ShowMessage("수량이 너무 많습니다.")
+                _uiState.value = CactusFragmentUiState.ShowMessage("수량이 너무 많습니다.")
                 return
             }
 
             if (currentText.isEmpty() && number == 0) {
-                _uiState.value = MainFragmentUiState.ShowMessage("0으로 시작 할 수 없습니다.")
+                _uiState.value = CactusFragmentUiState.ShowMessage("0으로 시작 할 수 없습니다.")
             } else {
                 _countText.value = currentText + number.toString()
             }
@@ -158,17 +157,17 @@ class MainFragmentVM(
                 "E" -> {
                     // ENTER
                     if (selectionCactusItem == null) {
-                        _uiState.value = MainFragmentUiState.ShowMessage("항목을 선택해 주세요.")
+                        _uiState.value = CactusFragmentUiState.ShowMessage("항목을 선택해 주세요.")
                         return
                     }
 
                     if (countText.value?.length!! <= 0) {
-                        _uiState.value = MainFragmentUiState.ShowMessage("수량을 입력해 주세요.")
+                        _uiState.value = CactusFragmentUiState.ShowMessage("수량을 입력해 주세요.")
                         return
                     }
 
                     if (basketCount >= 24) {
-                        _uiState.value = MainFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
+                        _uiState.value = CactusFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
                         return
                     }
 
@@ -176,7 +175,7 @@ class MainFragmentVM(
                     val price = cactus.price
                     val count = countText.value!!.toLong()
                     val total = price * count.toLong()
-                    _uiState.value = MainFragmentUiState.AddBasketCactus(
+                    _uiState.value = CactusFragmentUiState.AddBasketCactus(
                         CactusBasketVO(
                             cactus.uid,
                             cactus.name,

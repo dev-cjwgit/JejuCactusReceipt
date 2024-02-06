@@ -3,12 +3,12 @@ package com.cjwgit.jejucactusreceipt.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
-import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusAuctionBinding
+import com.cjwgit.jejucactusreceipt.databinding.TemplateAuctionBinding
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
 import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
 
 class CactusAuctionRecyclerViewAdapter(
-) : BaseRecyclerViewAdapter<TemplateCactusAuctionBinding, CactusAuctionEntity>(
+) : BaseRecyclerViewAdapter<TemplateAuctionBinding, CactusAuctionEntity>(
     mutableListOf()
 ) {
     private lateinit var onClickListener: (item: CactusAuctionEntity) -> Unit
@@ -18,10 +18,10 @@ class CactusAuctionRecyclerViewAdapter(
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<TemplateCactusAuctionBinding> {
+    ): BaseRecyclerViewHolder<TemplateAuctionBinding> {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.template_cactus_auction, viewGroup, false)
-        val bind = TemplateCactusAuctionBinding.bind(view)
+            .inflate(R.layout.template_auction, viewGroup, false)
+        val bind = TemplateAuctionBinding.bind(view)
         val holder = BaseRecyclerViewHolder(bind)
         view.setOnClickListener {
             onClickListener.invoke(getItem(holder.adapterPosition))
@@ -30,7 +30,7 @@ class CactusAuctionRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: BaseRecyclerViewHolder<TemplateCactusAuctionBinding>,
+        holder: BaseRecyclerViewHolder<TemplateAuctionBinding>,
         position: Int
     ) {
         val items = getItems()

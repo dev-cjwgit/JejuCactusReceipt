@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM" />
+            type="com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentVM" />
 
         <variable
             name="cactusRecyclerViewAdapter"

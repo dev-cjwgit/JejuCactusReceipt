@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.print.PrintHelper
 import com.cjwgit.jejucactusreceipt.databinding.LayoutAuctionPrintFormBinding
-import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
+import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintFormVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintUiState
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ class CactusAuctionPrintFormLayout : AppCompatActivity() {
         binding = LayoutAuctionPrintFormBinding.inflate(layoutInflater)
 
         val basketItems =
-            intent.getParcelableArrayListExtra("items", CactusAuctionBasketVO::class.java)
+            intent.getParcelableArrayListExtra("items", AuctionBasketVO::class.java)
         binding.viewModel = viewModel
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -57,7 +57,7 @@ class CactusAuctionPrintFormLayout : AppCompatActivity() {
 
             for (i in 0 until paddingItemSize) {
                 basketItems.add(
-                    CactusAuctionBasketVO(
+                    AuctionBasketVO(
                         start + i + 1L,
                         "",
                         0L,

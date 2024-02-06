@@ -10,21 +10,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cjwgit.jejucactusreceipt.databinding.FragmentMainBinding
+import com.cjwgit.jejucactusreceipt.databinding.FragmentCactusBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusBasketRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.layout.CactusPrintFormLayout
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentUiState
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentUiState
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentVM
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class MainFragment : Fragment() {
+class CactusFragment : Fragment() {
     private val binding get() = _binding!!
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentCactusBinding? = null
 
-    private val viewModel: MainFragmentVM by inject()
+    private val viewModel: CactusFragmentVM by inject()
 
     companion object {
         private val cactusRecyclerViewAdapter by lazy {
@@ -42,7 +42,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentCactusBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         binding.cactusRecyclerViewAdapter = cactusRecyclerViewAdapter
@@ -68,23 +68,23 @@ class MainFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.observe(viewLifecycleOwner) { state ->
                     when (state) {
-                        is MainFragmentUiState.ShowMessage -> {
+                        is CactusFragmentUiState.ShowMessage -> {
                             showMessage(state.message)
                         }
 
-                        is MainFragmentUiState.SetCactusList -> {
+                        is CactusFragmentUiState.SetCactusList -> {
                             cactusRecyclerViewAdapter.initData(state.data.toMutableList())
                         }
 
-                        is MainFragmentUiState.AddBasketCactus -> {
+                        is CactusFragmentUiState.AddBasketCactus -> {
                             cactusBasketRecyclerViewAdapter.add(state.data)
                         }
 
-                        is MainFragmentUiState.ClearBasketList -> {
+                        is CactusFragmentUiState.ClearBasketList -> {
                             cactusBasketRecyclerViewAdapter.clear()
                         }
 
-                        is MainFragmentUiState.PrintBasket -> {
+                        is CactusFragmentUiState.PrintBasket -> {
                             printBasket()
                         }
 

@@ -3,7 +3,7 @@ package com.cjwgit.jejucactusreceipt.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
+import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ sealed class AuctionFragmentUiState {
     data object ClearBasketList : AuctionFragmentUiState()
     data class ShowMessage(val message: String) : AuctionFragmentUiState()
     data class SetCactusList(val data: List<CactusAuctionEntity>) : AuctionFragmentUiState()
-    data class AddBasketCactus(val data: CactusAuctionBasketVO) : AuctionFragmentUiState()
+    data class AddBasketCactus(val data: AuctionBasketVO) : AuctionFragmentUiState()
 
 }
 
@@ -87,7 +87,7 @@ class AuctionFragmentVM : DialButtonVM() {
         _uiState.value = AuctionFragmentUiState.Nothing
     }
 
-    fun removeBasketItem(item: CactusAuctionBasketVO) {
+    fun removeBasketItem(item: AuctionBasketVO) {
         val currentTotalBoxCount = _basketTotalBoxCount.value!!
 
         _basketTotalBoxCount.value = currentTotalBoxCount - item.boxCount
@@ -169,7 +169,7 @@ class AuctionFragmentVM : DialButtonVM() {
                     val cactus = selectionCactusItem!!
                     val count = countText.value!!.toLong()
                     _uiState.value = AuctionFragmentUiState.AddBasketCactus(
-                        CactusAuctionBasketVO(
+                        AuctionBasketVO(
                             cactus.uid,
                             cactus.name,
                             cactus.amount,

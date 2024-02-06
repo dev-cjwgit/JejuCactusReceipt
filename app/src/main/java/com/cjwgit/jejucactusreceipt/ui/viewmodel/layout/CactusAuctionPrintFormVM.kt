@@ -3,14 +3,14 @@ package com.cjwgit.jejucactusreceipt.ui.viewmodel.layout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cjwgit.jejucactusreceipt.domain.CactusAuctionBasketVO
+import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 sealed class CactusAuctionPrintUiState {
     data object Nothing : CactusAuctionPrintUiState()
-    data class Print(val items: ArrayList<CactusAuctionBasketVO>) : CactusAuctionPrintUiState()
+    data class Print(val items: ArrayList<AuctionBasketVO>) : CactusAuctionPrintUiState()
 
 
 }
@@ -29,10 +29,10 @@ class CactusAuctionPrintFormVM : ViewModel() {
     val totalBoxCount: LiveData<Long> get() = _totalBoxCount
 
     // TODO CJW WORK : Model에서 가져와야 한다.
-    private val basketList: ArrayList<CactusAuctionBasketVO> = arrayListOf()
+    private val basketList: ArrayList<AuctionBasketVO> = arrayListOf()
 
     // TODO CJW WORK : Model에서 가져와야 한다.
-    fun init(basketList: ArrayList<CactusAuctionBasketVO>) {
+    fun init(basketList: ArrayList<AuctionBasketVO>) {
         this.basketList.clear()
         this.basketList.addAll(basketList)
 
