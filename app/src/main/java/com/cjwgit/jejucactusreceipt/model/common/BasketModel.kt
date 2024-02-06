@@ -1,4 +1,4 @@
-package com.cjwgit.jejucactusreceipt.model.inter
+package com.cjwgit.jejucactusreceipt.model.common
 
 interface BasketModel<T> {
     fun addItem(item: T)
@@ -7,7 +7,7 @@ interface BasketModel<T> {
     fun removeItem(item: T)
 
     fun getItems(): List<T>
-    fun getItem(): T
+    fun getItem(pos: Int): T
 
     fun clear()
 }

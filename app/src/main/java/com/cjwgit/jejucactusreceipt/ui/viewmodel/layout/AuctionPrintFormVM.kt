@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.model.inter.BasketModel
+import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

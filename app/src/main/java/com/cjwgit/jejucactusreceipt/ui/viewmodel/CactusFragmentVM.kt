@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
-import com.cjwgit.jejucactusreceipt.model.inter.BasketModel
+import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
