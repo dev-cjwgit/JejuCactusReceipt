@@ -17,7 +17,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".ui.layout.CactusAuctionPrintFormLayout"
+            android:name=".ui.layout.AuctionPrintFormLayout"
             android:exported="true" />
 
         <activity

@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintFormVM" />
+            type="com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormVM" />
     </data>
 
     <FrameLayout

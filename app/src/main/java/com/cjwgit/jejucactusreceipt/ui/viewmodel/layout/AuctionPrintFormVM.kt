@@ -8,17 +8,17 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-sealed class CactusAuctionPrintUiState {
-    data object Nothing : CactusAuctionPrintUiState()
-    data class Print(val items: ArrayList<AuctionBasketVO>) : CactusAuctionPrintUiState()
+sealed class AuctionPrintFormUiState {
+    data object Nothing : AuctionPrintFormUiState()
+    data class PrintForm(val items: ArrayList<AuctionBasketVO>) : AuctionPrintFormUiState()
 
 
 }
 
-class CactusAuctionPrintFormVM : ViewModel() {
+class AuctionPrintFormVM : ViewModel() {
 
-    private val _uiState = MutableLiveData<CactusAuctionPrintUiState>()
-    val uiState: LiveData<CactusAuctionPrintUiState> get() = _uiState
+    private val _uiState = MutableLiveData<AuctionPrintFormUiState>()
+    val uiState: LiveData<AuctionPrintFormUiState> get() = _uiState
 
 
     private val _nowTime = MutableLiveData<String>()
@@ -41,7 +41,7 @@ class CactusAuctionPrintFormVM : ViewModel() {
 
 
     private fun resetUiState() {
-        _uiState.value = CactusAuctionPrintUiState.Nothing
+        _uiState.value = AuctionPrintFormUiState.Nothing
     }
 
     private fun calcBasketList() {
@@ -60,7 +60,7 @@ class CactusAuctionPrintFormVM : ViewModel() {
             _totalBoxCount.value = totalBoxCount
 
 
-            _uiState.value = CactusAuctionPrintUiState.Print(basketList)
+            _uiState.value = AuctionPrintFormUiState.PrintForm(basketList)
         } finally {
             resetUiState()
         }

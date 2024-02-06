@@ -15,17 +15,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.print.PrintHelper
 import com.cjwgit.jejucactusreceipt.databinding.LayoutAuctionPrintFormBinding
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintFormVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintUiState
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormVM
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormUiState
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class CactusAuctionPrintFormLayout : AppCompatActivity() {
+class AuctionPrintFormLayout : AppCompatActivity() {
     private lateinit var binding: LayoutAuctionPrintFormBinding
-    private val viewModel: CactusAuctionPrintFormVM by inject()
+    private val viewModel: AuctionPrintFormVM by inject()
 
     private var one = false
 
@@ -38,9 +38,9 @@ class CactusAuctionPrintFormLayout : AppCompatActivity() {
         binding.viewModel = viewModel
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.observe(this@CactusAuctionPrintFormLayout) { state ->
+                viewModel.uiState.observe(this@AuctionPrintFormLayout) { state ->
                     when (state) {
-                        is CactusAuctionPrintUiState.Print -> {
+                        is AuctionPrintFormUiState.PrintForm -> {
                             printBasket()
                         }
 
