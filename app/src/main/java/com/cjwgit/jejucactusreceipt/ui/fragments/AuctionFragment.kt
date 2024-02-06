@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,12 +18,13 @@ import com.cjwgit.jejucactusreceipt.ui.layout.AuctionPrintFormLayout
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class AuctionFragment : Fragment() {
     private val binding get() = _binding!!
     private var _binding: FragmentAuctionBinding? = null
 
-    private val viewModel: AuctionFragmentVM by viewModels()
+    private val viewModel: AuctionFragmentVM by inject()
 
     companion object {
         private val cactusRecyclerViewAdapter by lazy {

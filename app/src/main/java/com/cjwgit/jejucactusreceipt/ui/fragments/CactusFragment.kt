@@ -65,7 +65,7 @@ class CactusFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.uiState.observe(viewLifecycleOwner) { state ->
                     when (state) {
                         is CactusFragmentUiState.ShowMessage -> {
@@ -74,14 +74,6 @@ class CactusFragment : Fragment() {
 
                         is CactusFragmentUiState.SetCactusList -> {
                             cactusRecyclerViewAdapter.initData(state.data.toMutableList())
-                        }
-
-                        is CactusFragmentUiState.AddBasketCactus -> {
-                            cactusBasketRecyclerViewAdapter.add(state.data)
-                        }
-
-                        is CactusFragmentUiState.ClearBasketList -> {
-                            cactusBasketRecyclerViewAdapter.clear()
                         }
 
                         is CactusFragmentUiState.PrintBasket -> {

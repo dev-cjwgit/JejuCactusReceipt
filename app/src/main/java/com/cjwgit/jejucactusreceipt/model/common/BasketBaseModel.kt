@@ -1,13 +1,10 @@
-package com.cjwgit.jejucactusreceipt.model
+package com.cjwgit.jejucactusreceipt.model.common
 
-import com.cjwgit.jejucactusreceipt.model.common.BasketModel
-
-class BasketBaseModel<T> : BasketModel<T> {
+abstract class BasketBaseModel<T> : BasketModel<T> {
     private val MAX_ITEM_SIZE = 24
 
     private val items: ArrayList<T> = arrayListOf()
     override fun addItem(item: T) {
-
         items.add(item)
     }
 
@@ -34,5 +31,4 @@ class BasketBaseModel<T> : BasketModel<T> {
     override fun clear() {
         items.clear()
     }
-
 }

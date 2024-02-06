@@ -16,19 +16,14 @@ sealed class CactusFragmentUiState {
     data object Nothing : CactusFragmentUiState()
     data object PrintBasket : CactusFragmentUiState()
 
-    data object ClearBasketList : CactusFragmentUiState()
     data class ShowMessage(val message: String) : CactusFragmentUiState()
     data class SetCactusList(val data: List<CactusEntity>) : CactusFragmentUiState()
-    data class AddBasketCactus(val data: CactusBasketVO) : CactusFragmentUiState()
     data class SetBasketList(val items: List<CactusBasketVO>) : CactusFragmentUiState()
 }
 
 class CactusFragmentVM(
-    private val cactusBasketModel: BasketModel<CactusBasketVO>
+    private val basketModel: BasketModel<CactusBasketVO>
 ) : DialButtonVM() {
-    // 장바구니에 쌓인 아이템 개수
-    private var basketCount = 0
-
     private val _uiState = MutableLiveData<CactusFragmentUiState>()
     val uiState: LiveData<CactusFragmentUiState> get() = _uiState
 
@@ -62,13 +57,10 @@ class CactusFragmentVM(
     }
 
     fun removeBasketItem(item: CactusBasketVO) {
-        val currentTotalBoxCount = _basketTotalBoxCount.value!!
-        val currentTotalPrice = _basketTotalPrice.value!!
+        // TODO CJW WORK 모델 연결 필요
+        basketModel.removeItem(item)
 
-        _basketTotalBoxCount.value = currentTotalBoxCount - item.boxCount
-        _basketTotalPrice.value = currentTotalPrice - item.total
-
-        basketCount -= 1
+        refreshBasketAdatperItems()
     }
 
     private fun getCactusList(): List<CactusEntity> {
@@ -81,14 +73,20 @@ class CactusFragmentVM(
 
     fun init() {
         try {
-            viewModelScope.launch {
-                _uiState.postValue(CactusFragmentUiState.SetCactusList(getCactusList()))
+            viewModelScope.launch(exceptionHandler) {
+                _uiState.value = CactusFragmentUiState.SetCactusList(getCactusList())
             }
         } finally {
             resetUiState()
         }
     }
 
+    private fun refreshBasketAdatperItems() {
+        _basketTotalBoxCount.value = basketModel.getTotalBoxCount()
+        _basketTotalPrice.value = basketModel.getTotalPrice()
+
+        _uiState.value = CactusFragmentUiState.SetBasketList(basketModel.getItems())
+    }
 
     private fun resetSelection() {
         selectionCactusItem = null
@@ -99,15 +97,13 @@ class CactusFragmentVM(
     }
 
     fun resetUiState() {
-        _uiState.value = CactusFragmentUiState.Nothing
+        _uiState.postValue(CactusFragmentUiState.Nothing)
     }
 
     fun clearBasket() {
         try {
-            _uiState.value = CactusFragmentUiState.ClearBasketList
-            _basketTotalPrice.value = 0
-            _basketTotalBoxCount.value = 0
-            basketCount = 0
+            basketModel.clear()
+            refreshBasketAdatperItems()
         } finally {
             resetUiState()
         }
@@ -169,32 +165,24 @@ class CactusFragmentVM(
                             throw CactusException(ErrorMessage.NEED_INPUT_AMOUNT)
                         }
 
-                        if (basketCount >= 24) {
+                        if (basketModel.getSize() >= 24) {
                             throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
                         }
 
                         val cactus = selectionCactusItem!!
                         val price = cactus.price
                         val count = countText.value!!.toLong()
-                        val total = price * count.toLong()
-                        _uiState.value = CactusFragmentUiState.AddBasketCactus(
-                            CactusBasketVO(
-                                cactus.uid,
-                                cactus.name,
-                                cactus.price,
-                                count,
-                                total
-                            )
+                        val total = price * count
+                        val item = CactusBasketVO(
+                            cactus.uid,
+                            cactus.name,
+                            cactus.price,
+                            count,
+                            total
                         )
+                        basketModel.addItem(item)
 
-                        val currentTotalBoxCount = _basketTotalBoxCount.value!!
-                        val currentTotalPrice = _basketTotalPrice.value!!
-
-                        _basketTotalBoxCount.value = currentTotalBoxCount + count
-                        _basketTotalPrice.value = currentTotalPrice + total
-
-                        basketCount += 1
-
+                        refreshBasketAdatperItems()
                         resetSelection()
                     }
                 }

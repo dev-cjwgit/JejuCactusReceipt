@@ -2,7 +2,8 @@ package com.cjwgit.jejucactusreceipt.di
 
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
-import com.cjwgit.jejucactusreceipt.model.BasketBaseModel
+import com.cjwgit.jejucactusreceipt.model.AuctionBasketModel
+import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentVM
@@ -30,6 +31,6 @@ val viewModelModule = module {
 }
 
 val modelModule = module {
-    single<BasketModel<CactusBasketVO>>(named("CactusBasket")) { BasketBaseModel() }
-    single<BasketModel<AuctionBasketVO>>(named("AuctionBasket")) { BasketBaseModel() }
+    single<BasketModel<CactusBasketVO>>(named("CactusBasket")) { CactusBasketModel() }
+    single<BasketModel<AuctionBasketVO>>(named("AuctionBasket")) { AuctionBasketModel() }
 }

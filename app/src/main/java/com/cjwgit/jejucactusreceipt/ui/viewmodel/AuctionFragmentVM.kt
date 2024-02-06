@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
+import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ sealed class AuctionFragmentUiState {
 }
 
 class AuctionFragmentVM(
-    private val auctionBasketModel: BasketModel<AuctionBasketVO>
+    private val basketModel: BasketModel<AuctionBasketVO>
 ) : DialButtonVM() {
     // 장바구니에 쌓인 아이템 개수
     private var basketCount = 0
@@ -197,7 +198,23 @@ class AuctionFragmentVM(
     }
 
     override fun handleException(exception: CactusException) {
-        TODO("Not yet implemented")
+        when (exception.errorMessage.code) {
+            ErrorMessage.NOT_SELECT_ITEM.code -> {
+                _uiState.value = AuctionFragmentUiState.ShowMessage("항목을 선택해 주세요.")
+            }
+
+            ErrorMessage.EXCEED_ITEM_COUNT.code -> {
+                _uiState.value = AuctionFragmentUiState.ShowMessage("더 이상은 담을 수 없습니다.")
+            }
+
+            ErrorMessage.NEED_INPUT_AMOUNT.code -> {
+                _uiState.value = AuctionFragmentUiState.ShowMessage("수량을 입력해 주세요.")
+            }
+
+            else -> {
+
+            }
+        }
     }
 
 }
