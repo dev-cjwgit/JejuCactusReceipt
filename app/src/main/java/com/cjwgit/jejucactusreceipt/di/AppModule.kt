@@ -1,30 +1,36 @@
 package com.cjwgit.jejucactusreceipt.di
 
-import com.cjwgit.jejucactusreceipt.model.TestModel
+import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
+import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
+import com.cjwgit.jejucactusreceipt.model.AuctionBasketModel
+import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
+import com.cjwgit.jejucactusreceipt.model.inter.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.MainFragmentVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.SettingFragmentVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusAuctionPrintFormVM
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+
 val viewModelModule = module {
-    viewModel { MainFragmentVM(get()) }
-    viewModel { AuctionFragmentVM() }
+    viewModel { CactusFragmentVM(get(named("CactusBasket"))) }
+    viewModel { AuctionFragmentVM(get(named("AuctionBasket"))) }
+
     viewModel { SettingFragmentVM() }
+
     viewModel { EditCactusFragmentVM() }
     viewModel { EditAuctionFragmentVM() }
-    viewModel { CactusPrintFormVM() }
-    viewModel { CactusAuctionPrintFormVM() }
+
+    viewModel { CactusPrintFormVM(get(named("CactusBasket"))) }
+    viewModel { AuctionPrintFormVM(get(named("AuctionBasket"))) }
 }
 
-
-val appModule = module {
-    single {
-        TestModel()
-    }
-
+val modelModule = module {
+    single<BasketModel<CactusBasketVO>>(named("CactusBasket")) { CactusBasketModel() }
+    single<BasketModel<AuctionBasketVO>>(named("AuctionBasket")) { AuctionBasketModel() }
 }

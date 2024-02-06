@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
-import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
+import com.cjwgit.jejucactusreceipt.model.inter.BasketModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -17,7 +17,7 @@ sealed class CactusPrintUiState {
 }
 
 class CactusPrintFormVM(
-    private val cactusBasketModel: CactusBasketModel
+    private val cactusBasketModel: BasketModel<CactusBasketVO>
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<CactusPrintUiState>()

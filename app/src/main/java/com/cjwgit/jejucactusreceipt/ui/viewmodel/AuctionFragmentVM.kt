@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
+import com.cjwgit.jejucactusreceipt.model.inter.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -20,7 +21,9 @@ sealed class AuctionFragmentUiState {
 
 }
 
-class AuctionFragmentVM : DialButtonVM() {
+class AuctionFragmentVM(
+    private val auctionBasketModel: BasketModel<AuctionBasketVO>
+) : DialButtonVM() {
     // 장바구니에 쌓인 아이템 개수
     private var basketCount = 0
 
@@ -161,7 +164,7 @@ class AuctionFragmentVM : DialButtonVM() {
                     }
 
 
-                    if(basketCount >= 24){
+                    if (basketCount >= 24) {
                         _uiState.value = AuctionFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
                         return
                     }
