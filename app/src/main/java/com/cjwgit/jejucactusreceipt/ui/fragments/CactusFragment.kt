@@ -88,6 +88,10 @@ class CactusFragment : Fragment() {
                             printBasket()
                         }
 
+                        is CactusFragmentUiState.SetBasketList -> {
+                            cactusBasketRecyclerViewAdapter.initData(state.items.toMutableList())
+                        }
+
                         else -> {
 
                         }

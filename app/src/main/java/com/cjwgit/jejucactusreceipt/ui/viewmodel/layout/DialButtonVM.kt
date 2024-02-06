@@ -1,8 +1,8 @@
 package com.cjwgit.jejucactusreceipt.ui.viewmodel.layout
 
-import androidx.lifecycle.ViewModel
+import com.cjwgit.jejucactusreceipt.ui.viewmodel.common.BaseViewModel
 
-abstract class DialButtonVM : ViewModel() {
+abstract class DialButtonVM : BaseViewModel() {
     abstract fun click(number: Int)
 
     abstract fun click(command: String)

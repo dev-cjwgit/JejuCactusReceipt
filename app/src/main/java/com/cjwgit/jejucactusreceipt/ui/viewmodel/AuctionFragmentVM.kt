@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
+import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -193,6 +194,10 @@ class AuctionFragmentVM(
         } finally {
             resetUiState()
         }
+    }
+
+    override fun handleException(exception: CactusException) {
+        TODO("Not yet implemented")
     }
 
 }

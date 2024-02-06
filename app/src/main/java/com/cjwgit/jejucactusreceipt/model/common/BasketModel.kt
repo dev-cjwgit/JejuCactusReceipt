@@ -9,5 +9,7 @@ interface BasketModel<T> {
     fun getItems(): List<T>
     fun getItem(pos: Int): T
 
+    fun getSize(): Int
+
     fun clear()
 }

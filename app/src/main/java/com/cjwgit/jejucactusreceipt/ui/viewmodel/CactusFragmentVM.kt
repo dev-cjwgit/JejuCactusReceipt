@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
+import com.cjwgit.jejucactusreceipt.exec.CactusException
+import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -18,6 +20,7 @@ sealed class CactusFragmentUiState {
     data class ShowMessage(val message: String) : CactusFragmentUiState()
     data class SetCactusList(val data: List<CactusEntity>) : CactusFragmentUiState()
     data class AddBasketCactus(val data: CactusBasketVO) : CactusFragmentUiState()
+    data class SetBasketList(val items: List<CactusBasketVO>) : CactusFragmentUiState()
 }
 
 class CactusFragmentVM(
@@ -145,61 +148,79 @@ class CactusFragmentVM(
 
     override fun click(command: String) {
         println("문자 클릭 $command")
-        try {
-            when (command) {
-                "D" -> {
-                    // DELETE
-                    val currentText = _countText.value ?: ""
-                    if (currentText.isNotEmpty()) {
-                        _countText.value = currentText.substring(0, currentText.length - 1)
-                    }
-                }
-
-                "E" -> {
-                    // ENTER
-                    if (selectionCactusItem == null) {
-                        _uiState.value = CactusFragmentUiState.ShowMessage("항목을 선택해 주세요.")
-                        return
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                when (command) {
+                    "D" -> {
+                        // DELETE
+                        val currentText = _countText.value ?: ""
+                        if (currentText.isNotEmpty()) {
+                            _countText.value = currentText.substring(0, currentText.length - 1)
+                        }
                     }
 
-                    if (countText.value?.length!! <= 0) {
-                        _uiState.value = CactusFragmentUiState.ShowMessage("수량을 입력해 주세요.")
-                        return
-                    }
+                    "E" -> {
+                        // ENTER
+                        if (selectionCactusItem == null) {
+                            throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
+                        }
 
-                    if (basketCount >= 24) {
-                        _uiState.value = CactusFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
-                        return
-                    }
+                        if (countText.value?.length!! <= 0) {
+                            throw CactusException(ErrorMessage.NEED_INPUT_AMOUNT)
+                        }
 
-                    val cactus = selectionCactusItem!!
-                    val price = cactus.price
-                    val count = countText.value!!.toLong()
-                    val total = price * count.toLong()
-                    _uiState.value = CactusFragmentUiState.AddBasketCactus(
-                        CactusBasketVO(
-                            cactus.uid,
-                            cactus.name,
-                            cactus.price,
-                            count,
-                            total
+                        if (basketCount >= 24) {
+                            throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
+                        }
+
+                        val cactus = selectionCactusItem!!
+                        val price = cactus.price
+                        val count = countText.value!!.toLong()
+                        val total = price * count.toLong()
+                        _uiState.value = CactusFragmentUiState.AddBasketCactus(
+                            CactusBasketVO(
+                                cactus.uid,
+                                cactus.name,
+                                cactus.price,
+                                count,
+                                total
+                            )
                         )
-                    )
 
-                    val currentTotalBoxCount = _basketTotalBoxCount.value!!
-                    val currentTotalPrice = _basketTotalPrice.value!!
+                        val currentTotalBoxCount = _basketTotalBoxCount.value!!
+                        val currentTotalPrice = _basketTotalPrice.value!!
 
-                    _basketTotalBoxCount.value = currentTotalBoxCount + count
-                    _basketTotalPrice.value = currentTotalPrice + total
+                        _basketTotalBoxCount.value = currentTotalBoxCount + count
+                        _basketTotalPrice.value = currentTotalPrice + total
 
-                    basketCount += 1
+                        basketCount += 1
 
-                    resetSelection()
+                        resetSelection()
+                    }
                 }
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
         }
+    }
 
+    override fun handleException(exception: CactusException) {
+        when (exception.errorMessage.code) {
+            ErrorMessage.NOT_SELECT_ITEM.code -> {
+                _uiState.value = CactusFragmentUiState.ShowMessage("항목을 선택해 주세요.")
+            }
+
+            ErrorMessage.EXCEED_ITEM_COUNT.code -> {
+                _uiState.value = CactusFragmentUiState.ShowMessage("더 이상은 담을 수 없습니다.")
+            }
+
+            ErrorMessage.NEED_INPUT_AMOUNT.code -> {
+                _uiState.value = CactusFragmentUiState.ShowMessage("수량을 입력해 주세요.")
+            }
+
+            else -> {
+
+            }
+        }
     }
 }
