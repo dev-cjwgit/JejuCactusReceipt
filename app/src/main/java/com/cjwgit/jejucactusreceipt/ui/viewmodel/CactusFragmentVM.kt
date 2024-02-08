@@ -57,10 +57,9 @@ class CactusFragmentVM(
     }
 
     fun removeBasketItem(item: CactusBasketVO) {
-        // TODO CJW WORK 모델 연결 필요
         basketModel.removeItem(item)
 
-        refreshBasketAdatperItems()
+        refreshBasketAdapterItems()
     }
 
     private fun getCactusList(): List<CactusEntity> {
@@ -72,16 +71,16 @@ class CactusFragmentVM(
     }
 
     fun init() {
-        try {
-            viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
                 _uiState.value = CactusFragmentUiState.SetCactusList(getCactusList())
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
         }
     }
 
-    private fun refreshBasketAdatperItems() {
+    private fun refreshBasketAdapterItems() {
         _basketTotalBoxCount.value = basketModel.getTotalBoxCount()
         _basketTotalPrice.value = basketModel.getTotalPrice()
 
@@ -103,16 +102,10 @@ class CactusFragmentVM(
     fun clearBasket() {
         try {
             basketModel.clear()
-            refreshBasketAdatperItems()
+            refreshBasketAdapterItems()
         } finally {
             resetUiState()
         }
-    }
-
-    fun clearViewData() {
-        clearBasket()
-        resetSelection()
-        resetUiState()
     }
 
     fun print() {
@@ -182,7 +175,7 @@ class CactusFragmentVM(
                         )
                         basketModel.addItem(item)
 
-                        refreshBasketAdatperItems()
+                        refreshBasketAdapterItems()
                         resetSelection()
                     }
                 }

@@ -33,14 +33,14 @@ class CactusPrintFormLayout : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = LayoutCactusPrintFormBinding.inflate(layoutInflater)
 
-        val basketItems = intent.getParcelableArrayListExtra("items", CactusBasketVO::class.java)
         binding.viewModel = viewModel
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.observe(this@CactusPrintFormLayout) { state ->
                     when (state) {
                         is CactusPrintUiState.Print -> {
-                            printBasket()
+                            printBasket(state.items)
                         }
 
                         else -> {
@@ -50,30 +50,11 @@ class CactusPrintFormLayout : AppCompatActivity() {
                 }
             }
         }
-        basketItems?.let {
-            val paddingItemSize = 24 - basketItems.size
-            val start = basketItems.size
 
-            for (i in 0 until paddingItemSize) {
-                basketItems.add(
-                    CactusBasketVO(
-                        start + i + 1L,
-                        "",
-                        0L,
-                        0L,
-                        0L
-                    )
-                )
-            }
-
-            binding.items = basketItems
-            viewModel.init(basketItems)
-        }
-
+        viewModel.init()
         setContentView(binding.root)
         one = false
     }
-
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         if (!one) {
@@ -97,13 +78,13 @@ class CactusPrintFormLayout : AppCompatActivity() {
             intent23.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
             intent23.type = "image/*"
             startActivity(Intent.createChooser(intent23, "프린트"))
-            finish()
+//            finish()
         } else {
 //            finish();
         }
     }
 
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(
@@ -114,7 +95,7 @@ class CactusPrintFormLayout : AppCompatActivity() {
         return Uri.parse(path)
     }
 
-    private fun printBasket() {
+    private fun printBasket(items: List<CactusBasketVO>) {
 
     }
 }

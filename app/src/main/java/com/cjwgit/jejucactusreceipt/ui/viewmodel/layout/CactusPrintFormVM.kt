@@ -11,9 +11,7 @@ import java.util.Locale
 
 sealed class CactusPrintUiState {
     data object Nothing : CactusPrintUiState()
-    data class Print(val items: ArrayList<CactusBasketVO>) : CactusPrintUiState()
-
-
+    data class Print(val items: List<CactusBasketVO>) : CactusPrintUiState()
 }
 
 class CactusPrintFormVM(
@@ -23,10 +21,12 @@ class CactusPrintFormVM(
     private val _uiState = MutableLiveData<CactusPrintUiState>()
     val uiState: LiveData<CactusPrintUiState> get() = _uiState
 
+    private val _basketItems = MutableLiveData<List<CactusBasketVO>>()
+    val basketItems: LiveData<List<CactusBasketVO>> get() = _basketItems
+
 
     private val _nowTime = MutableLiveData<String>()
     val nowTime: LiveData<String> get() = _nowTime
-
 
     private val _totalBoxCount = MutableLiveData<Long>()
     val totalBoxCount: LiveData<Long> get() = _totalBoxCount
@@ -34,20 +34,13 @@ class CactusPrintFormVM(
     private val _totalPrice = MutableLiveData<Long>()
     val totalPriceCount: LiveData<Long> get() = _totalPrice
 
-    // TODO CJW WORK : Model에서 가져와야 한다.
-    private val basketList: ArrayList<CactusBasketVO> = arrayListOf()
-
-    // TODO CJW WORK : Model에서 가져와야 한다.
-    fun init(basketList: ArrayList<CactusBasketVO>) {
-        this.basketList.clear()
-        this.basketList.addAll(basketList)
-
+    fun init() {
+        _basketItems.value = cactusBasketModel.getItems()
         calcBasketList()
     }
 
-
     private fun resetUiState() {
-        _uiState.value = CactusPrintUiState.Nothing
+        _uiState.postValue(CactusPrintUiState.Nothing)
     }
 
     private fun calcBasketList() {
@@ -59,17 +52,11 @@ class CactusPrintFormVM(
             val formattedDate = dateFormat.format(Date())
 
             _nowTime.value = formattedDate
-            var totalBoxCount = 0L
-            var totalPrice = 0L
-            for (item in basketList) {
-                totalBoxCount += item.boxCount
-                totalPrice += item.total
-            }
-            _totalBoxCount.value = totalBoxCount
-            _totalPrice.value = totalPrice
 
+            _totalBoxCount.value = cactusBasketModel.getTotalBoxCount()
+            _totalPrice.value = cactusBasketModel.getTotalPrice()
 
-            _uiState.value = CactusPrintUiState.Print(basketList)
+            _uiState.value = CactusPrintUiState.Print(_basketItems.value!!)
         } finally {
             resetUiState()
         }

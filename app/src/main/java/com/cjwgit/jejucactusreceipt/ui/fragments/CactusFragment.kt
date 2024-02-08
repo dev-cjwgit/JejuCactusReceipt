@@ -97,10 +97,6 @@ class CactusFragment : Fragment() {
 
     private fun printBasket() {
         val intent = Intent(requireContext(), CactusPrintFormLayout::class.java)
-        intent.putParcelableArrayListExtra(
-            "items",
-            ArrayList(cactusBasketRecyclerViewAdapter.getItems())
-        )
         startActivity(intent)
     }
 

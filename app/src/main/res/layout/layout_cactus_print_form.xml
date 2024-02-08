@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="java.util.ArrayList" />
-
-        <import type="com.cjwgit.jejucactusreceipt.domain.CactusBasketVO" />
-
-        <variable
-            name="items"
-            type="ArrayList&lt;CactusBasketVO&gt;" />
-
         <variable
             name="viewModel"
             type="com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM" />
@@ -342,7 +333,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(0).name}"
+                        android:text="@{viewModel.basketItems.get(0).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -351,7 +342,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(0).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(0).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -361,7 +352,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(0).price}"
+                        android:formattedText="@{viewModel.basketItems.get(0).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -371,7 +362,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(0).total}"
+                        android:formattedText="@{viewModel.basketItems.get(0).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -412,7 +403,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(1).name}"
+                        android:text="@{viewModel.basketItems.get(1).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -421,7 +412,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(1).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(1).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -431,7 +422,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(1).price}"
+                        android:formattedText="@{viewModel.basketItems.get(1).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -441,7 +432,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(1).total}"
+                        android:formattedText="@{viewModel.basketItems.get(1).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -482,7 +473,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(2).name}"
+                        android:text="@{viewModel.basketItems.get(2).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -491,7 +482,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(2).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(2).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -501,7 +492,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(2).price}"
+                        android:formattedText="@{viewModel.basketItems.get(2).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -511,7 +502,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(2).total}"
+                        android:formattedText="@{viewModel.basketItems.get(2).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -552,7 +543,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(3).name}"
+                        android:text="@{viewModel.basketItems.get(3).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -561,7 +552,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(3).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(3).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -571,7 +562,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(3).price}"
+                        android:formattedText="@{viewModel.basketItems.get(3).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -581,7 +572,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(3).total}"
+                        android:formattedText="@{viewModel.basketItems.get(3).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -622,7 +613,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(4).name}"
+                        android:text="@{viewModel.basketItems.get(4).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -631,7 +622,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(4).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(4).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -641,7 +632,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(4).price}"
+                        android:formattedText="@{viewModel.basketItems.get(4).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -651,7 +642,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(4).total}"
+                        android:formattedText="@{viewModel.basketItems.get(4).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -692,7 +683,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(5).name}"
+                        android:text="@{viewModel.basketItems.get(5).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -701,7 +692,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(5).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(5).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -711,7 +702,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(5).price}"
+                        android:formattedText="@{viewModel.basketItems.get(5).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -721,7 +712,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(5).total}"
+                        android:formattedText="@{viewModel.basketItems.get(5).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -762,7 +753,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(6).name}"
+                        android:text="@{viewModel.basketItems.get(6).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -771,7 +762,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(6).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(6).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -781,7 +772,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(6).price}"
+                        android:formattedText="@{viewModel.basketItems.get(6).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -791,7 +782,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(6).total}"
+                        android:formattedText="@{viewModel.basketItems.get(6).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -832,7 +823,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(7).name}"
+                        android:text="@{viewModel.basketItems.get(7).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -841,7 +832,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(7).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(7).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -851,7 +842,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(7).price}"
+                        android:formattedText="@{viewModel.basketItems.get(7).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -861,7 +852,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(7).total}"
+                        android:formattedText="@{viewModel.basketItems.get(7).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -902,7 +893,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(8).name}"
+                        android:text="@{viewModel.basketItems.get(8).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -911,7 +902,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(8).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(8).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -921,7 +912,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(8).price}"
+                        android:formattedText="@{viewModel.basketItems.get(8).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -931,7 +922,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(8).total}"
+                        android:formattedText="@{viewModel.basketItems.get(8).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -972,7 +963,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(9).name}"
+                        android:text="@{viewModel.basketItems.get(9).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -981,7 +972,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(9).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(9).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -991,7 +982,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(9).price}"
+                        android:formattedText="@{viewModel.basketItems.get(9).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1001,7 +992,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(9).total}"
+                        android:formattedText="@{viewModel.basketItems.get(9).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1042,7 +1033,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(10).name}"
+                        android:text="@{viewModel.basketItems.get(10).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1051,7 +1042,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(10).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(10).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1061,7 +1052,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(10).price}"
+                        android:formattedText="@{viewModel.basketItems.get(10).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1071,7 +1062,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(10).total}"
+                        android:formattedText="@{viewModel.basketItems.get(10).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1112,7 +1103,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(11).name}"
+                        android:text="@{viewModel.basketItems.get(11).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1121,7 +1112,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(11).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(11).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1131,7 +1122,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(11).price}"
+                        android:formattedText="@{viewModel.basketItems.get(11).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1141,7 +1132,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(11).total}"
+                        android:formattedText="@{viewModel.basketItems.get(11).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1182,7 +1173,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(12).name}"
+                        android:text="@{viewModel.basketItems.get(12).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1191,7 +1182,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(12).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(12).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1201,7 +1192,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(12).price}"
+                        android:formattedText="@{viewModel.basketItems.get(12).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1211,7 +1202,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(12).total}"
+                        android:formattedText="@{viewModel.basketItems.get(12).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1252,7 +1243,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(13).name}"
+                        android:text="@{viewModel.basketItems.get(13).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1261,7 +1252,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(13).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(13).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1271,7 +1262,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(13).price}"
+                        android:formattedText="@{viewModel.basketItems.get(13).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1281,7 +1272,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(13).total}"
+                        android:formattedText="@{viewModel.basketItems.get(13).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1322,7 +1313,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(14).name}"
+                        android:text="@{viewModel.basketItems.get(14).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1331,7 +1322,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(14).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(14).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1341,7 +1332,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(14).price}"
+                        android:formattedText="@{viewModel.basketItems.get(14).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1351,7 +1342,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(14).total}"
+                        android:formattedText="@{viewModel.basketItems.get(14).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1392,7 +1383,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(15).name}"
+                        android:text="@{viewModel.basketItems.get(15).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1401,7 +1392,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(15).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(15).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1411,7 +1402,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(15).price}"
+                        android:formattedText="@{viewModel.basketItems.get(15).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1421,7 +1412,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(15).total}"
+                        android:formattedText="@{viewModel.basketItems.get(15).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1462,7 +1453,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(16).name}"
+                        android:text="@{viewModel.basketItems.get(16).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1471,7 +1462,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(16).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(16).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1481,7 +1472,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(16).price}"
+                        android:formattedText="@{viewModel.basketItems.get(16).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1491,7 +1482,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(16).total}"
+                        android:formattedText="@{viewModel.basketItems.get(16).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1532,7 +1523,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(17).name}"
+                        android:text="@{viewModel.basketItems.get(17).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1541,7 +1532,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(17).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(17).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1551,7 +1542,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(17).price}"
+                        android:formattedText="@{viewModel.basketItems.get(17).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1561,7 +1552,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(17).total}"
+                        android:formattedText="@{viewModel.basketItems.get(17).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1602,7 +1593,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(18).name}"
+                        android:text="@{viewModel.basketItems.get(18).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1611,7 +1602,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(18).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(18).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1621,7 +1612,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(18).price}"
+                        android:formattedText="@{viewModel.basketItems.get(18).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1631,7 +1622,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(18).total}"
+                        android:formattedText="@{viewModel.basketItems.get(18).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1672,7 +1663,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(19).name}"
+                        android:text="@{viewModel.basketItems.get(19).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1681,7 +1672,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(19).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(19).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1691,7 +1682,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(19).price}"
+                        android:formattedText="@{viewModel.basketItems.get(19).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1701,7 +1692,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(19).total}"
+                        android:formattedText="@{viewModel.basketItems.get(19).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1742,7 +1733,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(20).name}"
+                        android:text="@{viewModel.basketItems.get(20).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1751,7 +1742,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(20).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(20).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1761,7 +1752,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(20).price}"
+                        android:formattedText="@{viewModel.basketItems.get(20).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1771,7 +1762,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(20).total}"
+                        android:formattedText="@{viewModel.basketItems.get(20).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1812,7 +1803,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(21).name}"
+                        android:text="@{viewModel.basketItems.get(21).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1821,7 +1812,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(21).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(21).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1831,7 +1822,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(21).price}"
+                        android:formattedText="@{viewModel.basketItems.get(21).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1841,7 +1832,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(21).total}"
+                        android:formattedText="@{viewModel.basketItems.get(21).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1882,7 +1873,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(22).name}"
+                        android:text="@{viewModel.basketItems.get(22).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1891,7 +1882,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(22).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(22).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1901,7 +1892,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(22).price}"
+                        android:formattedText="@{viewModel.basketItems.get(22).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1911,7 +1902,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(22).total}"
+                        android:formattedText="@{viewModel.basketItems.get(22).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1951,7 +1942,7 @@
                         android:layout_weight="5"
                         android:background="@drawable/border_all"
                         android:gravity="center"
-                        android:text="@{items.get(23).name}"
+                        android:text="@{viewModel.basketItems.get(23).name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
 
@@ -1960,7 +1951,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(23).boxCount}"
+                        android:formattedText="@{viewModel.basketItems.get(23).boxCount}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1970,7 +1961,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(23).price}"
+                        android:formattedText="@{viewModel.basketItems.get(23).price}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
@@ -1980,7 +1971,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:background="@drawable/border_all"
-                        android:formattedText="@{items.get(23).total}"
+                        android:formattedText="@{viewModel.basketItems.get(23).total}"
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/receipt_text_size" />
