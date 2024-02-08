@@ -4,6 +4,16 @@ import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 
 class AuctionBasketModel : BasketBaseModel<AuctionBasketVO>() {
+    private fun getItemsToPadding(paddingSize: Int): List<AuctionBasketVO> {
+        val items = super.getItems() as ArrayList<AuctionBasketVO>
+        items.addAll(List(paddingSize) { AuctionBasketVO(-1, "", 0, 0, 0) })
+        return items
+    }
+
+    override fun getItems(): List<AuctionBasketVO> {
+        return getItemsToPadding(MAX_ITEM_SIZE - getSize())
+    }
+
     override fun getTotalPrice(): Long {
         TODO("Not yet implemented")
     }
