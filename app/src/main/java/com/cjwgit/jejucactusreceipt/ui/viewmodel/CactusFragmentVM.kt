@@ -7,6 +7,7 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
+import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -53,12 +54,10 @@ class CactusFragmentVM(
 
         _selectItemNameText.value = item.name
         _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
-
     }
 
     fun removeBasketItem(item: CactusBasketVO) {
         basketModel.removeItem(item)
-
         refreshBasketAdapterItems()
     }
 
@@ -80,6 +79,10 @@ class CactusFragmentVM(
         }
     }
 
+    fun resetUiState() {
+        _uiState.postValue(CactusFragmentUiState.Nothing)
+    }
+
     private fun refreshBasketAdapterItems() {
         _basketTotalBoxCount.value = basketModel.getTotalBoxCount()
         _basketTotalPrice.value = basketModel.getTotalPrice()
@@ -93,10 +96,6 @@ class CactusFragmentVM(
         _selectItemPriceText.value = ""
 
         _countText.value = ""
-    }
-
-    fun resetUiState() {
-        _uiState.postValue(CactusFragmentUiState.Nothing)
     }
 
     fun clearBasket() {
@@ -158,7 +157,7 @@ class CactusFragmentVM(
                             throw CactusException(ErrorMessage.NEED_INPUT_AMOUNT)
                         }
 
-                        if (basketModel.getSize() >= 24) {
+                        if (basketModel.getSize() >= BasketBaseModel.MAX_ITEM_SIZE) {
                             throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
                         }
 

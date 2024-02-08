@@ -1,7 +1,9 @@
 package com.cjwgit.jejucactusreceipt.model.common
 
 abstract class BasketBaseModel<T> : BasketModel<T> {
-    protected val MAX_ITEM_SIZE = 24
+    companion object {
+        const val MAX_ITEM_SIZE = 24
+    }
 
     private val items: ArrayList<T> = arrayListOf()
     override fun addItem(item: T) {

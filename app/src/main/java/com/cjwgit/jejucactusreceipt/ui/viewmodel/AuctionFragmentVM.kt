@@ -7,6 +7,7 @@ import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
+import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
@@ -16,19 +17,14 @@ sealed class AuctionFragmentUiState {
     data object Nothing : AuctionFragmentUiState()
     data object PrintBasket : AuctionFragmentUiState()
 
-    data object ClearBasketList : AuctionFragmentUiState()
     data class ShowMessage(val message: String) : AuctionFragmentUiState()
     data class SetCactusList(val data: List<CactusAuctionEntity>) : AuctionFragmentUiState()
-    data class AddBasketCactus(val data: AuctionBasketVO) : AuctionFragmentUiState()
-
+    data class SetBasketList(val items: List<AuctionBasketVO>) : AuctionFragmentUiState()
 }
 
 class AuctionFragmentVM(
     private val basketModel: BasketModel<AuctionBasketVO>
 ) : DialButtonVM() {
-    // 장바구니에 쌓인 아이템 개수
-    private var basketCount = 0
-
     private val _uiState = MutableLiveData<AuctionFragmentUiState>()
     val uiState: LiveData<AuctionFragmentUiState> get() = _uiState
 
@@ -49,6 +45,19 @@ class AuctionFragmentVM(
     // 현재 선택된 선인장 항목
     private var selectionCactusItem: CactusAuctionEntity? = null
 
+
+    fun setCactusItem(item: CactusAuctionEntity) {
+        selectionCactusItem = item
+
+        _selectItemNameText.value = item.name
+        _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
+    }
+
+    fun removeBasketItem(item: AuctionBasketVO) {
+        basketModel.removeItem(item)
+        refreshBasketAdapterItems()
+    }
+
     private fun getCactusList(): List<CactusAuctionEntity> {
         return listOf(
             CactusAuctionEntity(0, "선인장1", 11, 10000),
@@ -59,32 +68,12 @@ class AuctionFragmentVM(
 
 
     fun init() {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
+            try {
                 _uiState.postValue(AuctionFragmentUiState.SetCactusList(getCactusList()))
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
-        }
-    }
-
-
-    fun setCactusItem(item: CactusAuctionEntity) {
-        selectionCactusItem = item
-
-        _selectItemNameText.value = item.name
-        _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
-
-    }
-
-
-    fun clearBasket() {
-        try {
-            _uiState.value = AuctionFragmentUiState.ClearBasketList
-            _basketTotalBoxCount.value = 0
-            basketCount = 0
-        } finally {
-            resetUiState()
         }
     }
 
@@ -92,12 +81,11 @@ class AuctionFragmentVM(
         _uiState.value = AuctionFragmentUiState.Nothing
     }
 
-    fun removeBasketItem(item: AuctionBasketVO) {
-        val currentTotalBoxCount = _basketTotalBoxCount.value!!
 
-        _basketTotalBoxCount.value = currentTotalBoxCount - item.boxCount
+    private fun refreshBasketAdapterItems() {
+        _basketTotalBoxCount.value = basketModel.getTotalBoxCount()
 
-        basketCount -= 1
+        _uiState.value = AuctionFragmentUiState.SetBasketList(basketModel.getItems())
     }
 
     private fun resetSelection() {
@@ -108,10 +96,13 @@ class AuctionFragmentVM(
         _countText.value = ""
     }
 
-    fun clearViewData() {
-        clearBasket()
-        resetSelection()
-        resetUiState()
+    fun clearBasket() {
+        try {
+            basketModel.clear()
+            refreshBasketAdapterItems()
+        } finally {
+            resetUiState()
+        }
     }
 
     fun print() {
@@ -156,39 +147,31 @@ class AuctionFragmentVM(
                 "E" -> {
                     // ENTER
                     if (selectionCactusItem == null) {
-                        _uiState.value = AuctionFragmentUiState.ShowMessage("항목을 선택해 주세요.")
-                        return
+                        throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
                     }
 
                     if (countText.value?.length!! <= 0) {
-                        _uiState.value = AuctionFragmentUiState.ShowMessage("수량을 입력해 주세요.")
-                        return
+                        throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
                     }
 
 
-                    if (basketCount >= 24) {
-                        _uiState.value = AuctionFragmentUiState.ShowMessage("25개 이상은 담을 수 없습니다.")
-                        return
+                    if (basketModel.getSize() >= BasketBaseModel.MAX_ITEM_SIZE) {
+                        throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
                     }
 
                     val cactus = selectionCactusItem!!
                     val count = countText.value!!.toLong()
-                    _uiState.value = AuctionFragmentUiState.AddBasketCactus(
-                        AuctionBasketVO(
-                            cactus.uid,
-                            cactus.name,
-                            cactus.amount,
-                            count,
-                            cactus.price
-                        )
+
+                    val item = AuctionBasketVO(
+                        cactus.uid,
+                        cactus.name,
+                        cactus.amount,
+                        count,
+                        cactus.price
                     )
+                    basketModel.addItem(item)
 
-                    val currentTotalBoxCount = _basketTotalBoxCount.value!!
-
-                    _basketTotalBoxCount.value = currentTotalBoxCount + count
-
-                    basketCount += 1
-
+                    refreshBasketAdapterItems()
                     resetSelection()
                 }
             }

@@ -9,15 +9,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.print.PrintHelper
 import com.cjwgit.jejucactusreceipt.databinding.LayoutAuctionPrintFormBinding
-import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormUiState
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -33,44 +27,10 @@ class AuctionPrintFormLayout : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = LayoutAuctionPrintFormBinding.inflate(layoutInflater)
 
-        val basketItems =
-            intent.getParcelableArrayListExtra("items", AuctionBasketVO::class.java)
         binding.viewModel = viewModel
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.observe(this@AuctionPrintFormLayout) { state ->
-                    when (state) {
-                        is AuctionPrintFormUiState.PrintForm -> {
-                            printBasket()
-                        }
 
-                        else -> {
 
-                        }
-                    }
-                }
-            }
-        }
-        basketItems?.let {
-            val paddingItemSize = 24 - basketItems.size
-            val start = basketItems.size
-
-            for (i in 0 until paddingItemSize) {
-                basketItems.add(
-                    AuctionBasketVO(
-                        start + i + 1L,
-                        "",
-                        0L,
-                        0L,
-                        0L
-                    )
-                )
-            }
-
-            binding.items = basketItems
-            viewModel.init(basketItems)
-        }
-
+        viewModel.init()
         setContentView(binding.root)
         one = false
     }

@@ -76,16 +76,12 @@ class AuctionFragment : Fragment() {
                             cactusRecyclerViewAdapter.initData(state.data.toMutableList())
                         }
 
-                        is AuctionFragmentUiState.AddBasketCactus -> {
-                            cactusBasketRecyclerViewAdapter.add(state.data)
-                        }
-
-                        is AuctionFragmentUiState.ClearBasketList -> {
-                            cactusBasketRecyclerViewAdapter.clear()
-                        }
-
                         is AuctionFragmentUiState.PrintBasket -> {
                             printBasket()
+                        }
+
+                        is AuctionFragmentUiState.SetBasketList -> {
+                            cactusBasketRecyclerViewAdapter.initData(state.items.toMutableList())
                         }
 
                         else -> {

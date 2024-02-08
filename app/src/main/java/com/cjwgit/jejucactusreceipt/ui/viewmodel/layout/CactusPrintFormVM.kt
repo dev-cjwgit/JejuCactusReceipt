@@ -9,21 +9,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-sealed class CactusPrintUiState {
-    data object Nothing : CactusPrintUiState()
-    data class Print(val items: List<CactusBasketVO>) : CactusPrintUiState()
-}
-
 class CactusPrintFormVM(
     private val cactusBasketModel: BasketModel<CactusBasketVO>
 ) : ViewModel() {
-
-    private val _uiState = MutableLiveData<CactusPrintUiState>()
-    val uiState: LiveData<CactusPrintUiState> get() = _uiState
-
     private val _basketItems = MutableLiveData<List<CactusBasketVO>>()
     val basketItems: LiveData<List<CactusBasketVO>> get() = _basketItems
-
 
     private val _nowTime = MutableLiveData<String>()
     val nowTime: LiveData<String> get() = _nowTime
@@ -39,26 +29,17 @@ class CactusPrintFormVM(
         calcBasketList()
     }
 
-    private fun resetUiState() {
-        _uiState.postValue(CactusPrintUiState.Nothing)
-    }
 
     private fun calcBasketList() {
-        try {
-            // 로케일을 기본 로케일로 설정
-            val locale = Locale.getDefault()
-            // SimpleDateFormat을 사용하여 날짜 및 시간 형식화
-            val dateFormat = SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초", locale)
-            val formattedDate = dateFormat.format(Date())
+        // 로케일을 기본 로케일로 설정
+        val locale = Locale.getDefault()
+        // SimpleDateFormat을 사용하여 날짜 및 시간 형식화
+        val dateFormat = SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초", locale)
+        val formattedDate = dateFormat.format(Date())
 
-            _nowTime.value = formattedDate
+        _nowTime.value = formattedDate
 
-            _totalBoxCount.value = cactusBasketModel.getTotalBoxCount()
-            _totalPrice.value = cactusBasketModel.getTotalPrice()
-
-            _uiState.value = CactusPrintUiState.Print(_basketItems.value!!)
-        } finally {
-            resetUiState()
-        }
+        _totalBoxCount.value = cactusBasketModel.getTotalBoxCount()
+        _totalPrice.value = cactusBasketModel.getTotalPrice()
     }
 }

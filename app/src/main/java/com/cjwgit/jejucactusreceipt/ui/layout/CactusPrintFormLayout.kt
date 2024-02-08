@@ -9,15 +9,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.print.PrintHelper
 import com.cjwgit.jejucactusreceipt.databinding.LayoutCactusPrintFormBinding
-import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
-import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintUiState
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
@@ -32,24 +26,7 @@ class CactusPrintFormLayout : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LayoutCactusPrintFormBinding.inflate(layoutInflater)
-
         binding.viewModel = viewModel
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.observe(this@CactusPrintFormLayout) { state ->
-                    when (state) {
-                        is CactusPrintUiState.Print -> {
-                            printBasket(state.items)
-                        }
-
-                        else -> {
-
-                        }
-                    }
-                }
-            }
-        }
 
         viewModel.init()
         setContentView(binding.root)
@@ -78,7 +55,7 @@ class CactusPrintFormLayout : AppCompatActivity() {
             intent23.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris)
             intent23.type = "image/*"
             startActivity(Intent.createChooser(intent23, "프린트"))
-//            finish()
+            finish()
         } else {
 //            finish();
         }
@@ -93,9 +70,5 @@ class CactusPrintFormLayout : AppCompatActivity() {
             ), null
         )
         return Uri.parse(path)
-    }
-
-    private fun printBasket(items: List<CactusBasketVO>) {
-
     }
 }
