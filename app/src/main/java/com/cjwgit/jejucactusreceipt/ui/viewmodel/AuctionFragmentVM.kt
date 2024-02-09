@@ -47,15 +47,19 @@ class AuctionFragmentVM(
 
 
     fun setCactusItem(item: CactusAuctionEntity) {
-        selectionCactusItem = item
+        viewModelScope.launch(exceptionHandler) {
+            selectionCactusItem = item
 
-        _selectItemNameText.value = item.name
-        _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
+            _selectItemNameText.value = item.name
+            _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
+        }
     }
 
     fun removeBasketItem(item: AuctionBasketVO) {
-        basketModel.removeItem(item)
-        refreshBasketAdapterItems()
+        viewModelScope.launch(exceptionHandler) {
+            basketModel.removeItem(item)
+            refreshBasketAdapterItems()
+        }
     }
 
     private fun getCactusList(): List<CactusAuctionEntity> {
@@ -115,88 +119,82 @@ class AuctionFragmentVM(
 
     override fun click(number: Int) {
         println("숫자 클릭 : $number")
-        try {
-            val currentText = _countText.value ?: ""
-            if (currentText.length >= 5) {
-                _uiState.value = AuctionFragmentUiState.ShowMessage("수량이 너무 많습니다.")
-                return
-            }
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                val currentText = _countText.value ?: ""
+                if (currentText.length >= 5) {
+                    throw CactusException(ErrorMessage.EXCEED_ITEM_AMOUNT)
+                }
 
-            if (currentText.isEmpty() && number == 0) {
-                _uiState.value = AuctionFragmentUiState.ShowMessage("0으로 시작 할 수 없습니다.")
-            } else {
+                if (currentText.isEmpty() && number == 0)
+                    throw CactusException(ErrorMessage.NOT_START_INPUT_0)
+
                 _countText.value = currentText + number.toString()
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
         }
     }
 
     override fun click(command: String) {
         println("문자 클릭 $command")
-        try {
-            when (command) {
-                "D" -> {
-                    // DELETE
-                    val currentText = _countText.value ?: ""
-                    if (currentText.isNotEmpty()) {
-                        _countText.value = currentText.substring(0, currentText.length - 1)
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                when (command) {
+                    "D" -> {
+                        // DELETE
+                        val currentText = _countText.value ?: ""
+                        if (currentText.isNotEmpty()) {
+                            _countText.value = currentText.substring(0, currentText.length - 1)
+                        }
+                    }
+
+                    "E" -> {
+                        // ENTER
+                        if (selectionCactusItem == null) {
+                            throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
+                        }
+
+                        if (countText.value?.length!! <= 0) {
+                            throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
+                        }
+
+
+                        if (basketModel.getSize() >= BasketBaseModel.MAX_ITEM_SIZE) {
+                            throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
+                        }
+
+                        val cactus = selectionCactusItem!!
+                        val count = countText.value!!.toLong()
+
+                        val item = AuctionBasketVO(
+                            cactus.uid,
+                            cactus.name,
+                            cactus.amount,
+                            count,
+                            cactus.price
+                        )
+                        basketModel.addItem(item)
+
+                        refreshBasketAdapterItems()
+                        resetSelection()
                     }
                 }
-
-                "E" -> {
-                    // ENTER
-                    if (selectionCactusItem == null) {
-                        throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
-                    }
-
-                    if (countText.value?.length!! <= 0) {
-                        throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
-                    }
-
-
-                    if (basketModel.getSize() >= BasketBaseModel.MAX_ITEM_SIZE) {
-                        throw CactusException(ErrorMessage.EXCEED_ITEM_COUNT)
-                    }
-
-                    val cactus = selectionCactusItem!!
-                    val count = countText.value!!.toLong()
-
-                    val item = AuctionBasketVO(
-                        cactus.uid,
-                        cactus.name,
-                        cactus.amount,
-                        count,
-                        cactus.price
-                    )
-                    basketModel.addItem(item)
-
-                    refreshBasketAdapterItems()
-                    resetSelection()
-                }
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
         }
     }
 
     override fun handleException(exception: CactusException) {
-        when (exception.errorMessage.code) {
-            ErrorMessage.NOT_SELECT_ITEM.code -> {
-                _uiState.value = AuctionFragmentUiState.ShowMessage("항목을 선택해 주세요.")
+        try {
+            when (exception.errorMessage.code) {
+                else -> {
+                    _uiState.value = exception.message?.let { AuctionFragmentUiState.ShowMessage(it) }
+                }
             }
-
-            ErrorMessage.EXCEED_ITEM_COUNT.code -> {
-                _uiState.value = AuctionFragmentUiState.ShowMessage("더 이상은 담을 수 없습니다.")
-            }
-
-            ErrorMessage.NEED_INPUT_AMOUNT.code -> {
-                _uiState.value = AuctionFragmentUiState.ShowMessage("수량을 입력해 주세요.")
-            }
-
-            else -> {
-
-            }
+        } finally {
+            resetUiState()
         }
     }
 

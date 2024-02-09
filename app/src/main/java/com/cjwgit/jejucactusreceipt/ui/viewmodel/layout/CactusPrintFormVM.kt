@@ -25,19 +25,21 @@ class CactusPrintFormVM(
     val totalPriceCount: LiveData<Long> get() = _totalPrice
 
     fun init() {
-        _basketItems.value = cactusBasketModel.getItems()
-        calcBasketList()
+        loadPrintDataByModel()
     }
 
-
-    private fun calcBasketList() {
+    private fun getNowDate(): String {
         // 로케일을 기본 로케일로 설정
         val locale = Locale.getDefault()
         // SimpleDateFormat을 사용하여 날짜 및 시간 형식화
         val dateFormat = SimpleDateFormat("yyyy년MM월dd일 HH시mm분ss초", locale)
-        val formattedDate = dateFormat.format(Date())
+        return dateFormat.format(Date())
+    }
 
-        _nowTime.value = formattedDate
+    private fun loadPrintDataByModel() {
+        _basketItems.value = cactusBasketModel.getItems()
+
+        _nowTime.value = getNowDate()
 
         _totalBoxCount.value = cactusBasketModel.getTotalBoxCount()
         _totalPrice.value = cactusBasketModel.getTotalPrice()

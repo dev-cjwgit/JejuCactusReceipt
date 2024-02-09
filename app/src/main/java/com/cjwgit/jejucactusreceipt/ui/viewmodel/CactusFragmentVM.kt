@@ -50,15 +50,19 @@ class CactusFragmentVM(
     private var selectionCactusItem: CactusEntity? = null
 
     fun setCactusItem(item: CactusEntity) {
-        selectionCactusItem = item
+        viewModelScope.launch(exceptionHandler) {
+            selectionCactusItem = item
 
-        _selectItemNameText.value = item.name
-        _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
+            _selectItemNameText.value = item.name
+            _selectItemPriceText.value = DecimalFormat("###,###").format(item.price)
+        }
     }
 
     fun removeBasketItem(item: CactusBasketVO) {
-        basketModel.removeItem(item)
-        refreshBasketAdapterItems()
+        viewModelScope.launch(exceptionHandler) {
+            basketModel.removeItem(item)
+            refreshBasketAdapterItems()
+        }
     }
 
     private fun getCactusList(): List<CactusEntity> {
@@ -116,21 +120,22 @@ class CactusFragmentVM(
     }
 
     override fun click(number: Int) {
-        try {
-            println("숫자 클릭 : $number")
-            val currentText = _countText.value ?: ""
-            if (currentText.length >= 5) {
-                _uiState.value = CactusFragmentUiState.ShowMessage("수량이 너무 많습니다.")
-                return
-            }
+        println("숫자 클릭 : $number")
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                println("숫자 클릭 : $number")
+                val currentText = _countText.value ?: ""
+                if (currentText.length >= 5) {
+                    throw CactusException(ErrorMessage.EXCEED_ITEM_AMOUNT)
+                }
 
-            if (currentText.isEmpty() && number == 0) {
-                _uiState.value = CactusFragmentUiState.ShowMessage("0으로 시작 할 수 없습니다.")
-            } else {
+                if (currentText.isEmpty() && number == 0)
+                    throw CactusException(ErrorMessage.NOT_START_INPUT_0)
+
                 _countText.value = currentText + number.toString()
+            } finally {
+                resetUiState()
             }
-        } finally {
-            resetUiState()
         }
     }
 
@@ -186,20 +191,8 @@ class CactusFragmentVM(
 
     override fun handleException(exception: CactusException) {
         when (exception.errorMessage.code) {
-            ErrorMessage.NOT_SELECT_ITEM.code -> {
-                _uiState.value = CactusFragmentUiState.ShowMessage("항목을 선택해 주세요.")
-            }
-
-            ErrorMessage.EXCEED_ITEM_COUNT.code -> {
-                _uiState.value = CactusFragmentUiState.ShowMessage("더 이상은 담을 수 없습니다.")
-            }
-
-            ErrorMessage.NEED_INPUT_AMOUNT.code -> {
-                _uiState.value = CactusFragmentUiState.ShowMessage("수량을 입력해 주세요.")
-            }
-
             else -> {
-
+                _uiState.value = exception.message?.let { CactusFragmentUiState.ShowMessage(it) }
             }
         }
     }

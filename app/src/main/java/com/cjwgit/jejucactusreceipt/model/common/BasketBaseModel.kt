@@ -18,8 +18,12 @@ abstract class BasketBaseModel<T> : BasketModel<T> {
         items.remove(item)
     }
 
+    /**
+     * Read Only
+     */
     override fun getItems(): List<T> {
-        return items
+        // 데이터를 가져가서 변경해도 원본이 수정되지 않게 처리 새로운 인스턴스를 반환
+        return ArrayList(items)
     }
 
     override fun getItem(pos: Int): T {
