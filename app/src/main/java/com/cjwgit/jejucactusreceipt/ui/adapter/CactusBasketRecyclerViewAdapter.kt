@@ -32,7 +32,6 @@ class CactusBasketRecyclerViewAdapter(
         val holder = BaseRecyclerViewHolder(bind)
         view.setOnLongClickListener {
             onRemoveClick.invoke(getItem(holder.adapterPosition))
-            remove(holder.adapterPosition)
             true
         }
         return holder
