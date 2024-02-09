@@ -1,4 +1,4 @@
-package com.cjwgit.jejucactusreceipt.ui.recyclerview
+package com.cjwgit.jejucactusreceipt.ui.adapter.common
 
 
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ abstract class BaseRecyclerViewAdapter<BIND : ViewDataBinding, DTO>(
         return items
     }
 
-    fun initData(itemList: MutableList<DTO>) {
+    fun setData(itemList: MutableList<DTO>) {
         items.clear()
         items.addAll(itemList)
         notifyDataSetChanged()
@@ -38,23 +38,5 @@ abstract class BaseRecyclerViewAdapter<BIND : ViewDataBinding, DTO>(
         val count = items.size
         items.clear()
         notifyItemRangeRemoved(0, count)
-    }
-
-    fun add(data: DTO) {
-        items.add(data)
-        notifyItemInserted(itemCount)
-    }
-
-    fun remove(position: Int) {
-        items.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun remove(data: DTO) {
-        val position = items.indexOf(data)
-        if (position != -1) {
-            items.removeAt(position)
-            notifyItemRemoved(position)
-        }
     }
 }

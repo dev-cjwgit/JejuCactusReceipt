@@ -73,7 +73,7 @@ class CactusFragment : Fragment() {
                         }
 
                         is CactusFragmentUiState.SetCactusList -> {
-                            cactusRecyclerViewAdapter.initData(state.data.toMutableList())
+                            cactusRecyclerViewAdapter.setData(state.data.toMutableList())
                         }
 
                         is CactusFragmentUiState.PrintBasket -> {
@@ -81,7 +81,7 @@ class CactusFragment : Fragment() {
                         }
 
                         is CactusFragmentUiState.SetBasketList -> {
-                            cactusBasketRecyclerViewAdapter.initData(state.items.toMutableList())
+                            cactusBasketRecyclerViewAdapter.setData(state.items.toMutableList())
                         }
 
                         else -> {

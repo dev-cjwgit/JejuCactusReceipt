@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.TemplateAuctionBasketBinding
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.ui.recyclerview.BaseRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
 
 class CactusAuctionBasketRecyclerViewAdapter :
     BaseRecyclerViewAdapter<TemplateAuctionBasketBinding, AuctionBasketVO>(

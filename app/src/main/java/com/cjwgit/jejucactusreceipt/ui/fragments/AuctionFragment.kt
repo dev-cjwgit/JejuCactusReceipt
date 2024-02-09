@@ -73,7 +73,7 @@ class AuctionFragment : Fragment() {
                         }
 
                         is AuctionFragmentUiState.SetCactusList -> {
-                            cactusRecyclerViewAdapter.initData(state.data.toMutableList())
+                            cactusRecyclerViewAdapter.setData(state.data.toMutableList())
                         }
 
                         is AuctionFragmentUiState.PrintBasket -> {
@@ -81,7 +81,7 @@ class AuctionFragment : Fragment() {
                         }
 
                         is AuctionFragmentUiState.SetBasketList -> {
-                            cactusBasketRecyclerViewAdapter.initData(state.items.toMutableList())
+                            cactusBasketRecyclerViewAdapter.setData(state.items.toMutableList())
                         }
 
                         else -> {
