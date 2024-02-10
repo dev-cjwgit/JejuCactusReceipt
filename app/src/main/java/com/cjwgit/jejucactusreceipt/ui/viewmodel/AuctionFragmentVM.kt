@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
+import com.cjwgit.jejucactusreceipt.domain.AuctionEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
@@ -18,7 +18,7 @@ sealed class AuctionFragmentUiState {
     data object PrintBasket : AuctionFragmentUiState()
 
     data class ShowMessage(val message: String) : AuctionFragmentUiState()
-    data class SetCactusList(val data: List<CactusAuctionEntity>) : AuctionFragmentUiState()
+    data class SetCactusList(val data: List<AuctionEntity>) : AuctionFragmentUiState()
     data class SetBasketList(val items: List<AuctionBasketVO>) : AuctionFragmentUiState()
 }
 
@@ -43,10 +43,10 @@ class AuctionFragmentVM(
     val selectItemPriceText: LiveData<String> = _selectItemPriceText
 
     // 현재 선택된 선인장 항목
-    private var selectionCactusItem: CactusAuctionEntity? = null
+    private var selectionCactusItem: AuctionEntity? = null
 
 
-    fun setCactusItem(item: CactusAuctionEntity) {
+    fun setCactusItem(item: AuctionEntity) {
         viewModelScope.launch(exceptionHandler) {
             selectionCactusItem = item
 
@@ -62,11 +62,11 @@ class AuctionFragmentVM(
         }
     }
 
-    private fun getCactusList(): List<CactusAuctionEntity> {
+    private fun getCactusList(): List<AuctionEntity> {
         return listOf(
-            CactusAuctionEntity(0, "선인장1", 11, 10000),
-            CactusAuctionEntity(1, "선인장2", 6, 20000),
-            CactusAuctionEntity(2, "선인장3", 14, 30000),
+            AuctionEntity(0, "선인장1", 11, 10000),
+            AuctionEntity(1, "선인장2", 6, 20000),
+            AuctionEntity(2, "선인장3", 14, 30000),
         )
     }
 

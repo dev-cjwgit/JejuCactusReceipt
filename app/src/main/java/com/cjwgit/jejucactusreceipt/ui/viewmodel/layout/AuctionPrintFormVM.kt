@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.model.common.BasketModel
+import com.cjwgit.jejucactusreceipt.model.AuctionBasketModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
 class AuctionPrintFormVM(
-    private val auctionBasketModel: BasketModel<AuctionBasketVO>
+    private val auctionBasketModel: AuctionBasketModel
 ) : ViewModel() {
     private val _basketItems = MutableLiveData<List<AuctionBasketVO>>()
     val basketItems: LiveData<List<AuctionBasketVO>> get() = _basketItems
