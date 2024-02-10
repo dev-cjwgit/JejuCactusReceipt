@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditAuctionBinding
-import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentVM
 import org.koin.android.ext.android.inject
 
@@ -17,7 +17,7 @@ class EditAuctionFragment : Fragment() {
 
     private val viewModel: EditAuctionFragmentVM by inject()
     private val cactusRecyclerViewAdapter by lazy {
-        CactusAuctionRecyclerViewAdapter()
+        AuctionRecyclerViewAdapter()
     }
 
     override fun onCreateView(

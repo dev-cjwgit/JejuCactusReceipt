@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.TemplateAuctionBinding
-import com.cjwgit.jejucactusreceipt.domain.CactusAuctionEntity
+import com.cjwgit.jejucactusreceipt.domain.AuctionEntity
 import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
 
-class CactusAuctionRecyclerViewAdapter(
-) : BaseRecyclerViewAdapter<TemplateAuctionBinding, CactusAuctionEntity>(
+class AuctionRecyclerViewAdapter(
+) : BaseRecyclerViewAdapter<TemplateAuctionBinding, AuctionEntity>(
     mutableListOf()
 ) {
-    private lateinit var onClickListener: (item: CactusAuctionEntity) -> Unit
-    fun setOnClickListener(listener: (item: CactusAuctionEntity) -> Unit) {
+    private lateinit var onClickListener: (item: AuctionEntity) -> Unit
+    fun setOnClickListener(listener: (item: AuctionEntity) -> Unit) {
         onClickListener = listener
     }
     override fun onCreateViewHolder(

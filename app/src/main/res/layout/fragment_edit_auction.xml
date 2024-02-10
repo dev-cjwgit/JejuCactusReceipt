@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cactusRecyclerViewAdapter"
-            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter" />
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter" />
 
         <variable
             name="viewModel"

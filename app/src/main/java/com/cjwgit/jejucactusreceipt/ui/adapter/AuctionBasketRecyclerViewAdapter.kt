@@ -7,7 +7,7 @@ import com.cjwgit.jejucactusreceipt.databinding.TemplateAuctionBasketBinding
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
 
-class CactusAuctionBasketRecyclerViewAdapter :
+class AuctionBasketRecyclerViewAdapter :
     BaseRecyclerViewAdapter<TemplateAuctionBasketBinding, AuctionBasketVO>(
         mutableListOf()
     ) {

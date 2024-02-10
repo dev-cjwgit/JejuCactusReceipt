@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentAuctionBinding
-import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionBasketRecyclerViewAdapter
-import com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.AuctionBasketRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.layout.AuctionPrintFormLayout
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentUiState
@@ -28,11 +28,11 @@ class AuctionFragment : Fragment() {
 
     companion object {
         private val cactusRecyclerViewAdapter by lazy {
-            CactusAuctionRecyclerViewAdapter()
+            AuctionRecyclerViewAdapter()
         }
 
         private val cactusBasketRecyclerViewAdapter by lazy {
-            CactusAuctionBasketRecyclerViewAdapter()
+            AuctionBasketRecyclerViewAdapter()
         }
     }
 

@@ -11,11 +11,11 @@
 
         <variable
             name="cactusRecyclerViewAdapter"
-            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionRecyclerViewAdapter" />
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter" />
 
         <variable
             name="basketRecyclerViewAdapter"
-            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusAuctionBasketRecyclerViewAdapter" />
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.AuctionBasketRecyclerViewAdapter" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

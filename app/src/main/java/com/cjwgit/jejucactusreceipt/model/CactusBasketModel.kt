@@ -4,7 +4,7 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 
 class CactusBasketModel : BasketBaseModel<CactusBasketVO>() {
-    override fun getItemsToPadding(): List<CactusBasketVO> {
+    fun getItemsToPadding(): List<CactusBasketVO> {
         val paddingSize = MAX_ITEM_SIZE - getSize()
 
         val items = super.getItems() as ArrayList<CactusBasketVO>
