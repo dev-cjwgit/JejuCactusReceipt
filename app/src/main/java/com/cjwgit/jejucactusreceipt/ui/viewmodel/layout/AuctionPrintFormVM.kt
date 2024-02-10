@@ -25,7 +25,7 @@ class AuctionPrintFormVM(
 
 
     fun init() {
-        _basketItems.value = auctionBasketModel.getItems()
+        _basketItems.value = auctionBasketModel.getItemsToPadding()
         calcBasketList()
     }
 

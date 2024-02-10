@@ -37,7 +37,7 @@ class CactusPrintFormVM(
     }
 
     private fun loadPrintDataByModel() {
-        _basketItems.value = cactusBasketModel.getItems()
+        _basketItems.value = cactusBasketModel.getItemsToPadding()
 
         _nowTime.value = getNowDate()
 

@@ -33,7 +33,6 @@ class AuctionPrintFormLayout : AppCompatActivity() {
 
 
         viewModel.init()
-        setContentView(binding.root)
         one = false
     }
 

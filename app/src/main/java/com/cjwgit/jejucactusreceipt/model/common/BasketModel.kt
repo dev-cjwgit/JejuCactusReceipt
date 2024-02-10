@@ -6,6 +6,8 @@ interface BasketModel<T> {
     fun removeItem(pos: Int)
     fun removeItem(item: T)
 
+    fun getItemsToPadding(): List<T>
+
     fun getItems(): List<T>
     fun getItem(pos: Int): T
 

@@ -31,7 +31,6 @@ class CactusPrintFormLayout : AppCompatActivity() {
         binding.viewModel = viewModel
 
         viewModel.init()
-//        setContentView(binding.root)
         one = false
     }
 
