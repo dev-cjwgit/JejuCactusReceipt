@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.print.PrintHelper
+import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.LayoutAuctionPrintFormBinding
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.AuctionPrintFormVM
 import org.koin.android.ext.android.inject
@@ -25,7 +27,7 @@ class AuctionPrintFormLayout : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutAuctionPrintFormBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_auction_print_form)
 
         binding.viewModel = viewModel
 

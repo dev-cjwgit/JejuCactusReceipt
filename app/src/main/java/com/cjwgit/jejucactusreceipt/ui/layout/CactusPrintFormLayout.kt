@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.print.PrintHelper
+import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.LayoutCactusPrintFormBinding
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
 import org.koin.android.ext.android.inject
@@ -25,11 +27,11 @@ class CactusPrintFormLayout : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = LayoutCactusPrintFormBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_cactus_print_form)
         binding.viewModel = viewModel
 
         viewModel.init()
-        setContentView(binding.root)
+//        setContentView(binding.root)
         one = false
     }
 
