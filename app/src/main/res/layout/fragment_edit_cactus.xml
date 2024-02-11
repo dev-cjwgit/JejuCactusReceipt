@@ -7,7 +7,7 @@
 
         <variable
             name="cactusRecyclerViewAdapter"
-            type="com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter" />
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.EditCactusRecyclerViewAdapter" />
 
         <variable
             name="viewModel"
@@ -80,6 +80,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
+                    android:onClick="@{() -> viewModel.onClickAddButton()}"
                     android:text="확인"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -92,6 +93,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
+                    android:onClick="@{() -> viewModel.onClickCancelButton()}"
                     android:text="취소"
                     android:textColor="@color/white"
                     android:textSize="20sp"

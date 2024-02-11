@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditCactusBinding
-import com.cjwgit.jejucactusreceipt.ui.adapter.CactusRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.EditCactusRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentVM
@@ -22,7 +22,7 @@ class EditCactusFragment : Fragment() {
     private val viewModel: EditCactusFragmentVM by inject()
 
     private val cactusRecyclerViewAdapter by lazy {
-        CactusRecyclerViewAdapter()
+        EditCactusRecyclerViewAdapter()
     }
 
     override fun onCreateView(

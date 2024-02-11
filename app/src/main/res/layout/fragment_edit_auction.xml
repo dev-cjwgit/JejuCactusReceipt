@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="cactusRecyclerViewAdapter"
-            type="com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter" />
+            type="com.cjwgit.jejucactusreceipt.ui.adapter.EditAuctionRecyclerViewAdapter" />
 
         <variable
             name="viewModel"
@@ -50,6 +51,7 @@
                     android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:text="@={viewModel.nameEditText}" />
+
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditAuctionBinding
-import com.cjwgit.jejucactusreceipt.ui.adapter.AuctionRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.EditAuctionRecyclerViewAdapter
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditAuctionFragmentVM
@@ -21,7 +21,7 @@ class EditAuctionFragment : Fragment() {
 
     private val viewModel: EditAuctionFragmentVM by inject()
     private val cactusRecyclerViewAdapter by lazy {
-        AuctionRecyclerViewAdapter()
+        EditAuctionRecyclerViewAdapter()
     }
 
     override fun onCreateView(

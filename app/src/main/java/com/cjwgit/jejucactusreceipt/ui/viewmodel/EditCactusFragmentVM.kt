@@ -46,6 +46,41 @@ class EditCactusFragmentVM(
         }
     }
 
+    fun onClickAddButton() {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                val name = nameEditText.value!!
+                val price = priceEditText.value!!.toLong()
+
+                cactusModel.addItem(CactusEntity(name, price))
+                
+                refreshAdapter()
+                resetEditText()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
+    fun onClickCancelButton() {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+
+            } finally {
+                resetEditText()
+            }
+        }
+    }
+
+    private fun refreshAdapter() {
+        _uiState.value = EditCactusFragmentUiState.SetCactusList(cactusModel.getItems())
+    }
+
+    private fun resetEditText() {
+        nameEditText.value = ""
+        priceEditText.value = ""
+    }
+
     private fun resetUiState() {
         _uiState.postValue(EditCactusFragmentUiState.Nothing)
     }
