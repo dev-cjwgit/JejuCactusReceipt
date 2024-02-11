@@ -23,7 +23,7 @@ import org.koin.dsl.module
 
 
 val viewModelModule = module {
-    viewModel { CactusFragmentVM(get(named("CactusBasket"))) }
+    viewModel { CactusFragmentVM(get(named("CactusBasket")), get()) }
     viewModel { AuctionFragmentVM(get(named("AuctionBasket"))) }
 
     viewModel { SettingFragmentVM() }

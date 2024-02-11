@@ -8,23 +8,32 @@ class SQLiteHelper(
     val context: Context
 ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private const val DATABASE_NAME = "data.db"
+        private val DATABASE_NAME = FolderPath.ITEM_DB_PATH + "/data.db"
         private const val DATABASE_VERSION = 1
+
+        private const val CACTUS_SQL = "CREATE TABLE if not exists `cactus_item`(" +
+                "`uid` INTEGER PRIMARY KEY autoincrement," +
+                "`order` LONG NOT NULL," +
+                "`name` varchar(100) NOT NULL," +
+                "`price` LONG NOT NULL);"
+
+        private const val AUCTION_SQL = "CREATE TABLE if not exists `auction_item`(" +
+                "`uid` INTEGER PRIMARY KEY autoincrement," +
+                "`order` LONG NOT NULL," +
+                "`name` varchar(100) NOT NULL," +
+                "`amount` LONG NOT NULL," +
+                "`price` LONG NOT NULL);"
+
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        val sql = "CREATE TABLE if not exists `cactus`(" +
-                "`uid` LONG PRIMARY KEY autoincrement," +
-                "`name` varchar(100) NOT NULL DEFAULT ''," +
-                "`count` LONG NOT NULL," +
-                "`price` LONG NOT NULL," +
-                "`order` LONG NOT NULL);"
-        db.execSQL(sql)
+        db.execSQL(CACTUS_SQL)
+        db.execSQL(AUCTION_SQL)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        val sql = "DROP TABLE cactus;"
-        db.execSQL(sql)
+        db.execSQL("DROP TABLE cactus_item;")
+        db.execSQL("DROP TABLE auction_item;")
 
         onCreate(db)
     }

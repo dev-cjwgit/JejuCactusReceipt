@@ -7,6 +7,7 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
+import com.cjwgit.jejucactusreceipt.model.CactusProductModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
@@ -23,7 +24,8 @@ sealed class CactusFragmentUiState {
 }
 
 class CactusFragmentVM(
-    private val basketModel: BasketModel<CactusBasketVO>
+    private val basketModel: BasketModel<CactusBasketVO>,
+    private val cactusModel: CactusProductModel
 ) : DialButtonVM() {
     private val _uiState = MutableLiveData<CactusFragmentUiState>()
     val uiState: LiveData<CactusFragmentUiState> get() = _uiState
@@ -65,18 +67,12 @@ class CactusFragmentVM(
         }
     }
 
-    private fun getCactusList(): List<CactusEntity> {
-        return listOf(
-            CactusEntity(0, "커다란 용심목 씨앗", 10000),
-            CactusEntity(1, "선인장2", 20000),
-            CactusEntity(2, "선인장3", 30000),
-        )
-    }
-
     fun init() {
         viewModelScope.launch(exceptionHandler) {
             try {
-                _uiState.value = CactusFragmentUiState.SetCactusList(getCactusList())
+                _uiState.value = CactusFragmentUiState.SetCactusList(
+                    cactusModel.getItems()
+                )
             } finally {
                 resetUiState()
             }

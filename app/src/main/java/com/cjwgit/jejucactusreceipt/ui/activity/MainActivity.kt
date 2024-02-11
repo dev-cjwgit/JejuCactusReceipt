@@ -1,6 +1,10 @@
 package com.cjwgit.jejucactusreceipt.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -25,5 +29,15 @@ class MainActivity : AppCompatActivity() {
 
         // BottomNavigationView를 NavController와 설정
         navView.setupWithNavController(navController)
+
+        requestExternalStorage()
+    }
+
+    private fun requestExternalStorage() {
+        if (!Environment.isExternalStorageManager()) {
+            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+            intent.data = Uri.parse("package:" + applicationContext.packageName)
+            startActivity(intent)
+        }
     }
 }

@@ -6,4 +6,5 @@ data class AuctionEntity(
     // 한 박스에 선인장 몇개 있는지
     val amount: Long,
     val price: Long,
+    val order: Long = -1,
 )

@@ -8,7 +8,7 @@ class CactusProductModel(
     private val repository: CactusRepository
 ) : ProductModel<CactusEntity> {
     override fun getItems(): List<CactusEntity> {
-        TODO("Not yet implemented")
+        return repository.getItems()
     }
 
     override fun swipe(from: CactusEntity, to: CactusEntity) {
@@ -24,6 +24,6 @@ class CactusProductModel(
     }
 
     override fun addItem(item: CactusEntity) {
-        TODO("Not yet implemented")
+        repository.addItem(item)
     }
 }
