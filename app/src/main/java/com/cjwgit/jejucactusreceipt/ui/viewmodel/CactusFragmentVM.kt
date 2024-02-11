@@ -79,7 +79,7 @@ class CactusFragmentVM(
         }
     }
 
-    fun resetUiState() {
+    private fun resetUiState() {
         _uiState.postValue(CactusFragmentUiState.Nothing)
     }
 

@@ -128,7 +128,6 @@ class CactusFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.resetUiState()
         _binding = null
     }
 }
