@@ -1,12 +1,9 @@
 package com.cjwgit.jejucactusreceipt.di
 
-import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.model.AuctionBasketModel
 import com.cjwgit.jejucactusreceipt.model.AuctionProductModel
 import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
 import com.cjwgit.jejucactusreceipt.model.CactusProductModel
-import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.repository.AuctionRepository
 import com.cjwgit.jejucactusreceipt.repository.CactusRepository
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
@@ -19,26 +16,25 @@ import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.CactusPrintFormVM
 import com.cjwgit.jejucactusreceipt.utils.SQLiteHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
 val viewModelModule = module {
-    viewModel { CactusFragmentVM(get(named("CactusBasket")), get()) }
-    viewModel { AuctionFragmentVM(get(named("AuctionBasket")), get()) }
+    viewModel { CactusFragmentVM(get(), get()) }
+    viewModel { AuctionFragmentVM(get(), get()) }
 
     viewModel { SettingFragmentVM() }
 
     viewModel { EditCactusFragmentVM(get()) }
     viewModel { EditAuctionFragmentVM(get()) }
 
-    viewModel { CactusPrintFormVM(get(named("CactusBasket"))) }
-    viewModel { AuctionPrintFormVM(get(named("AuctionBasket"))) }
+    viewModel { CactusPrintFormVM(get()) }
+    viewModel { AuctionPrintFormVM(get()) }
 }
 
 val modelModule = module {
-    single<BasketModel<CactusBasketVO>>(named("CactusBasket")) { CactusBasketModel() }
-    single<BasketModel<AuctionBasketVO>>(named("AuctionBasket")) { AuctionBasketModel() }
+    single { CactusBasketModel() }
+    single { AuctionBasketModel() }
 
     single { CactusProductModel(get()) }
     single { AuctionProductModel(get()) }

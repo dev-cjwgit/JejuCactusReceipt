@@ -7,9 +7,9 @@ import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
+import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
 import com.cjwgit.jejucactusreceipt.model.CactusProductModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
-import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -24,7 +24,7 @@ sealed class CactusFragmentUiState {
 }
 
 class CactusFragmentVM(
-    private val basketModel: BasketModel<CactusBasketVO>,
+    private val basketModel: CactusBasketModel,
     private val cactusModel: CactusProductModel
 ) : DialButtonVM() {
     private val _uiState = MutableLiveData<CactusFragmentUiState>()
