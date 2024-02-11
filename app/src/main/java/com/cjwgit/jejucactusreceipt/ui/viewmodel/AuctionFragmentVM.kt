@@ -7,6 +7,7 @@ import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
 import com.cjwgit.jejucactusreceipt.domain.AuctionEntity
 import com.cjwgit.jejucactusreceipt.exec.CactusException
 import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
+import com.cjwgit.jejucactusreceipt.model.AuctionProductModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketBaseModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.layout.DialButtonVM
@@ -23,7 +24,8 @@ sealed class AuctionFragmentUiState {
 }
 
 class AuctionFragmentVM(
-    private val basketModel: BasketModel<AuctionBasketVO>
+    private val basketModel: BasketModel<AuctionBasketVO>,
+    private val cactusModel: AuctionProductModel
 ) : DialButtonVM() {
     private val _uiState = MutableLiveData<AuctionFragmentUiState>()
     val uiState: LiveData<AuctionFragmentUiState> get() = _uiState
@@ -62,19 +64,14 @@ class AuctionFragmentVM(
         }
     }
 
-    private fun getCactusList(): List<AuctionEntity> {
-        return listOf(
-            AuctionEntity(0, "선인장1", 11, 10000),
-            AuctionEntity(1, "선인장2", 6, 20000),
-            AuctionEntity(2, "선인장3", 14, 30000),
-        )
-    }
-
-
     fun init() {
         viewModelScope.launch(exceptionHandler) {
             try {
-                _uiState.postValue(AuctionFragmentUiState.SetCactusList(getCactusList()))
+                _uiState.postValue(
+                    AuctionFragmentUiState.SetCactusList(
+                        cactusModel.getItems()
+                    )
+                )
             } finally {
                 resetUiState()
             }

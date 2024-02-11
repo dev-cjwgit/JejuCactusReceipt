@@ -9,15 +9,14 @@ class CactusRepository(
 ) : BaseRepository<CactusEntity> {
     private val DB_NAME = "cactus_item"
     override fun getItems(): List<CactusEntity> {
-        val result = conn.executeAll("SELECT * FROM cactus_item ORDER BY `order` ASC;")
+        val result = conn.executeAll("SELECT * FROM $DB_NAME ORDER BY `order` ASC;")
 
-        val temp: List<CactusEntity> = result.map { item ->
+        return result.map { item ->
             CactusEntity(
                 item["name"].toString(),
                 item["price"].toString().toLong()
             )
         }
-        return temp
     }
 
     override fun updateItem(item: CactusEntity) {
@@ -29,7 +28,7 @@ class CactusRepository(
     }
 
     override fun addItem(item: CactusEntity) {
-        val order = conn.executeOne("SELECT COUNT(*) FROM cactus_item;")["count(*)"]?.toLong() ?: 0L
+        val order = conn.executeOne("SELECT COUNT(*) FROM $DB_NAME;")["count(*)"]?.toLong() ?: 0L
 
         conn.execute(
             "INSERT INTO " +

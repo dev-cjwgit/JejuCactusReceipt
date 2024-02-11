@@ -8,7 +8,7 @@ class AuctionProductModel(
     private val repository: AuctionRepository
 ) : ProductModel<AuctionEntity> {
     override fun getItems(): List<AuctionEntity> {
-        TODO("Not yet implemented")
+        return repository.getItems()
     }
 
     override fun swipe(from: AuctionEntity, to: AuctionEntity) {
@@ -24,6 +24,6 @@ class AuctionProductModel(
     }
 
     override fun addItem(item: AuctionEntity) {
-        TODO("Not yet implemented")
+        repository.addItem(item)
     }
 }

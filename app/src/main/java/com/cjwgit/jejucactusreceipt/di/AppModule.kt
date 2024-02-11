@@ -7,6 +7,7 @@ import com.cjwgit.jejucactusreceipt.model.AuctionProductModel
 import com.cjwgit.jejucactusreceipt.model.CactusBasketModel
 import com.cjwgit.jejucactusreceipt.model.CactusProductModel
 import com.cjwgit.jejucactusreceipt.model.common.BasketModel
+import com.cjwgit.jejucactusreceipt.repository.AuctionRepository
 import com.cjwgit.jejucactusreceipt.repository.CactusRepository
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.AuctionFragmentVM
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.CactusFragmentVM
@@ -24,7 +25,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { CactusFragmentVM(get(named("CactusBasket")), get()) }
-    viewModel { AuctionFragmentVM(get(named("AuctionBasket"))) }
+    viewModel { AuctionFragmentVM(get(named("AuctionBasket")), get()) }
 
     viewModel { SettingFragmentVM() }
 
@@ -47,4 +48,5 @@ val repositoryModule = module {
     single { SQLiteHelper(androidContext()) }
 
     single { CactusRepository(get()) }
+    single { AuctionRepository(get()) }
 }
