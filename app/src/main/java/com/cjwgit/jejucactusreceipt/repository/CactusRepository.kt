@@ -7,8 +7,17 @@ import com.cjwgit.jejucactusreceipt.utils.SQLiteHelper
 class CactusRepository(
     private val conn: SQLiteHelper
 ) : BaseRepository<CactusEntity> {
+    private val DB_NAME = "cactus_item"
     override fun getItems(): List<CactusEntity> {
-        TODO("Not yet implemented")
+        val result = conn.executeAll("SELECT * FROM cactus_item ORDER BY `order` ASC;")
+
+        val temp: List<CactusEntity> = result.map { item ->
+            CactusEntity(
+                item["name"].toString(),
+                item["price"].toString().toLong()
+            )
+        }
+        return temp
     }
 
     override fun updateItem(item: CactusEntity) {
@@ -20,6 +29,14 @@ class CactusRepository(
     }
 
     override fun addItem(item: CactusEntity) {
-        TODO("Not yet implemented")
+        val order = conn.executeOne("SELECT COUNT(*) FROM cactus_item;")["count(*)"]?.toLong() ?: 0L
+
+        conn.execute(
+            "INSERT INTO " +
+                    "$DB_NAME(`order`, `name`, `price`) " +
+                    "VALUES " +
+                    "(${order}, \"${item.name}\", ${item.price});"
+        )
     }
 }
+
