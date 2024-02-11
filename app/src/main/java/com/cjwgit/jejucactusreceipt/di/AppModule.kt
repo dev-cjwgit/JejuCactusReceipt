@@ -30,7 +30,7 @@ val viewModelModule = module {
     viewModel { SettingFragmentVM() }
 
     viewModel { EditCactusFragmentVM(get()) }
-    viewModel { EditAuctionFragmentVM() }
+    viewModel { EditAuctionFragmentVM(get()) }
 
     viewModel { CactusPrintFormVM(get(named("CactusBasket"))) }
     viewModel { AuctionPrintFormVM(get(named("AuctionBasket"))) }
