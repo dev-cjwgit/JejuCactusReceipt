@@ -17,7 +17,7 @@ sealed class EditCactusFragmentUiState {
 }
 
 class EditCactusFragmentVM(
-    private val cactusModel: CactusProductModel
+    val cactusModel: CactusProductModel
 ) : BaseViewModel() {
     private val _uiState = MutableLiveData<EditCactusFragmentUiState>()
     val uiState: LiveData<EditCactusFragmentUiState> get() = _uiState

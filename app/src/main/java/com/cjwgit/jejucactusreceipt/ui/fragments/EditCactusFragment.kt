@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cjwgit.jejucactusreceipt.databinding.FragmentEditCactusBinding
 import com.cjwgit.jejucactusreceipt.ui.adapter.EditCactusRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.ItemTouchHelperCallback
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.ItemTouchHelperListener
 import com.cjwgit.jejucactusreceipt.ui.dialog.NotificationDialog
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentUiState
 import com.cjwgit.jejucactusreceipt.ui.viewmodel.EditCactusFragmentVM
@@ -62,7 +65,6 @@ class EditCactusFragment : Fragment() {
 
             }
         }
-        viewModel.init()
     }
 
     private fun init() {
@@ -74,11 +76,29 @@ class EditCactusFragment : Fragment() {
         cactusRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         cactusRecyclerView.animation = null
         cactusRecyclerView.setHasFixedSize(true)
+
+        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(object : ItemTouchHelperListener {
+            override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+                // TODO CJW WORK Model 연결 필요
+                println("move $fromPosition -> $toPosition")
+                cactusRecyclerViewAdapter.notifyItemMoved(fromPosition, toPosition)
+                return true
+            }
+
+            override fun onItemSwipe(position: Int) {
+                // TODO CJW WORK Model 연결 필요
+                println("swipe $position")
+            }
+        }))
+        itemTouchHelper.attachToRecyclerView(cactusRecyclerView)
     }
 
     override fun onResume() {
         super.onResume()
         activity?.title = "제주농원 영수증 편집 화면"
+
+        // ViewPager 특성 상 Resume 시 초기화
+        viewModel.init()
     }
 
     private fun showMessage(message: String) {
