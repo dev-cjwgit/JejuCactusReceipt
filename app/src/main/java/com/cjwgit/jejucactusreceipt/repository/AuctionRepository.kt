@@ -17,7 +17,9 @@ class AuctionRepository(
             AuctionEntity(
                 item["name"].toString(),
                 item["amount"].toString().toLong(),
-                item["price"].toString().toLong()
+                item["price"].toString().toLong(),
+                item["uid"].toString().toLong(),
+                item["order"].toString().toLong()
             )
         }
     }

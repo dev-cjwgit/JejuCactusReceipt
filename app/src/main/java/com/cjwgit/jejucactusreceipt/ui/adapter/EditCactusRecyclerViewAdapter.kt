@@ -5,20 +5,18 @@ import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusBinding
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
-import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseListAdapter
 
 class EditCactusRecyclerViewAdapter(
-) : BaseRecyclerViewAdapter<TemplateCactusBinding, CactusEntity>(
-    mutableListOf()
-) {
+) : BaseListAdapter<TemplateCactusBinding, CactusEntity>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<TemplateCactusBinding> {
+    ): BaseViewHolder<TemplateCactusBinding> {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.template_cactus, viewGroup, false)
         val bind = TemplateCactusBinding.bind(view)
-        val holder = BaseRecyclerViewHolder(bind)
+        val holder = BaseViewHolder(bind)
         view.setOnClickListener {
 
         }
@@ -26,15 +24,11 @@ class EditCactusRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: BaseRecyclerViewHolder<TemplateCactusBinding>,
+        holder: BaseViewHolder<TemplateCactusBinding>,
         position: Int
     ) {
-        val items = getItems()
-        if (items.isNotEmpty()) {
-            val listposition = items[position]
-            // 데이터 주입
-            holder.binding.item = listposition
-
-        }
+        val item = getItem(holder.adapterPosition)
+        // 데이터 주입
+        holder.binding.item = item
     }
 }

@@ -5,12 +5,10 @@ import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.TemplateAuctionBasketBinding
 import com.cjwgit.jejucactusreceipt.domain.AuctionBasketVO
-import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseListAdapter
 
 class AuctionBasketRecyclerViewAdapter :
-    BaseRecyclerViewAdapter<TemplateAuctionBasketBinding, AuctionBasketVO>(
-        mutableListOf()
-    ) {
+    BaseListAdapter<TemplateAuctionBasketBinding, AuctionBasketVO>() {
     private lateinit var onRemoveClick: (item: AuctionBasketVO) -> Unit
 
     init {
@@ -28,11 +26,11 @@ class AuctionBasketRecyclerViewAdapter :
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<TemplateAuctionBasketBinding> {
+    ): BaseViewHolder<TemplateAuctionBasketBinding> {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.template_auction_basket, viewGroup, false)
         val bind = TemplateAuctionBasketBinding.bind(view)
-        val holder = BaseRecyclerViewHolder(bind)
+        val holder = BaseViewHolder(bind)
         view.setOnLongClickListener {
             onRemoveClick.invoke(getItem(holder.adapterPosition))
             true
@@ -41,15 +39,11 @@ class AuctionBasketRecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(
-        holder: BaseRecyclerViewHolder<TemplateAuctionBasketBinding>,
+        holder: BaseViewHolder<TemplateAuctionBasketBinding>,
         position: Int
     ) {
-        val items = getItems()
-        if (items.isNotEmpty()) {
-            val listposition = items[position]
-            // 데이터 주입
-            holder.binding.item = listposition
-
-        }
+        val item = getItem(holder.adapterPosition)
+        // 데이터 주입
+        holder.binding.item = item
     }
 }

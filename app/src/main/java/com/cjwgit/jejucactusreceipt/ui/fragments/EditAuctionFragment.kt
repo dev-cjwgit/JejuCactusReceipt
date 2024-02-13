@@ -53,7 +53,7 @@ class EditAuctionFragment : Fragment() {
                     }
 
                     is EditAuctionFragmentUiState.SetCactusList -> {
-                        cactusRecyclerViewAdapter.setData(state.data.toMutableList())
+                        cactusRecyclerViewAdapter.submitList(state.data)
                     }
 
                     else -> {

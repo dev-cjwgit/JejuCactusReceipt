@@ -73,7 +73,7 @@ class AuctionFragment : Fragment() {
                         }
 
                         is AuctionFragmentUiState.SetCactusList -> {
-                            cactusRecyclerViewAdapter.setData(state.data.toMutableList())
+                            cactusRecyclerViewAdapter.submitList(state.data)
                         }
 
                         is AuctionFragmentUiState.PrintBasket -> {
@@ -81,7 +81,7 @@ class AuctionFragment : Fragment() {
                         }
 
                         is AuctionFragmentUiState.SetBasketList -> {
-                            cactusBasketRecyclerViewAdapter.setData(state.items.toMutableList())
+                            cactusBasketRecyclerViewAdapter.submitList(state.items)
                         }
 
                         else -> {
@@ -97,10 +97,6 @@ class AuctionFragment : Fragment() {
 
     private fun printBasket() {
         val intent = Intent(requireContext(), AuctionPrintFormLayout::class.java)
-        intent.putParcelableArrayListExtra(
-            "items",
-            ArrayList(cactusBasketRecyclerViewAdapter.getItems())
-        )
         startActivity(intent)
     }
 

@@ -54,7 +54,7 @@ class EditCactusFragment : Fragment() {
                     }
 
                     is EditCactusFragmentUiState.SetCactusList -> {
-                        cactusRecyclerViewAdapter.setData(state.data.toMutableList())
+                        cactusRecyclerViewAdapter.submitList(state.data)
                     }
 
                     else -> {

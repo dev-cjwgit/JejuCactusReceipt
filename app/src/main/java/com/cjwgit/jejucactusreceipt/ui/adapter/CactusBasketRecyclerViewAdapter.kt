@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import com.cjwgit.jejucactusreceipt.R
 import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusBasketBinding
 import com.cjwgit.jejucactusreceipt.domain.CactusBasketVO
-import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseRecyclerViewAdapter
+import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseListAdapter
 
 class CactusBasketRecyclerViewAdapter(
 ) :
-    BaseRecyclerViewAdapter<TemplateCactusBasketBinding, CactusBasketVO>(
-        mutableListOf()
-    ) {
+    BaseListAdapter<TemplateCactusBasketBinding, CactusBasketVO>() {
     private lateinit var onRemoveClick: (item: CactusBasketVO) -> Unit
 
     init {
@@ -25,11 +23,11 @@ class CactusBasketRecyclerViewAdapter(
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): BaseRecyclerViewHolder<TemplateCactusBasketBinding> {
+    ): BaseViewHolder<TemplateCactusBasketBinding> {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.template_cactus_basket, viewGroup, false)
         val bind = TemplateCactusBasketBinding.bind(view)
-        val holder = BaseRecyclerViewHolder(bind)
+        val holder = BaseViewHolder(bind)
         view.setOnLongClickListener {
             onRemoveClick.invoke(getItem(holder.adapterPosition))
             true
@@ -38,15 +36,11 @@ class CactusBasketRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: BaseRecyclerViewHolder<TemplateCactusBasketBinding>,
+        holder: BaseViewHolder<TemplateCactusBasketBinding>,
         position: Int
     ) {
-        val items = getItems()
-        if (items.isNotEmpty()) {
-            val listposition = items[position]
-            // 데이터 주입
-            holder.binding.item = listposition
-
-        }
+        val item = getItem(holder.adapterPosition)
+        // 데이터 주입
+        holder.binding.item = item
     }
 }

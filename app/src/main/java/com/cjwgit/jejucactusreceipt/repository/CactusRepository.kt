@@ -14,7 +14,9 @@ class CactusRepository(
         return result.map { item ->
             CactusEntity(
                 item["name"].toString(),
-                item["price"].toString().toLong()
+                item["price"].toString().toLong(),
+                item["uid"].toString().toLong(),
+                item["order"].toString().toLong()
             )
         }
     }
