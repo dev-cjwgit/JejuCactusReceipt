@@ -38,12 +38,28 @@ class EditAuctionFragmentVM(
         }
     }
 
+    fun removeItem(position: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                auctionModel.removeItem(position)
+
+                refreshAdapter()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
     override fun handleException(exception: CactusException) {
         when (exception.errorMessage.code) {
             else -> {
                 _uiState.value = exception.message?.let { EditAuctionFragmentUiState.ShowMessage(it) }
             }
         }
+    }
+
+    private fun refreshAdapter() {
+        _uiState.value = EditAuctionFragmentUiState.SetCactusList(auctionModel.getItems())
     }
 
     private fun resetUiState() {

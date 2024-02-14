@@ -8,10 +8,21 @@ class AuctionRepository(
     private val conn: SQLiteHelper
 ) : BaseRepository<AuctionEntity> {
     private val DB_NAME = "auction_item"
+    override fun getItemToOrder(order: Int): AuctionEntity {
+        val item = conn.executeOne("SELECT uid, order, name, amount, price FROM $DB_NAME WHERE order = $order;")
+
+        return AuctionEntity(
+            item["name"].toString(),
+            item["amount"].toString().toLong(),
+            item["price"].toString().toLong(),
+            item["uid"].toString().toLong(),
+            item["order"].toString().toLong()
+        )
+    }
 
 
     override fun getItems(): List<AuctionEntity> {
-        val result = conn.executeAll("SELECT * FROM $DB_NAME ORDER BY `order` ASC;")
+        val result = conn.executeAll("SELECT uid, order, name, amount, price FROM $DB_NAME ORDER BY `order` ASC;")
 
         return result.map { item ->
             AuctionEntity(
@@ -24,11 +35,16 @@ class AuctionRepository(
         }
     }
 
-    override fun updateItem(item: AuctionEntity) {
+    override fun removeItemToOrder(order: Int) {
+        conn.execute("DELETE FROM $DB_NAME WHERE `order` = $order")
+        conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE  `order` > $order")
+    }
+
+    override fun removeItemToUid(uid: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun removeItem(item: AuctionEntity) {
+    override fun updateItem(item: AuctionEntity) {
         TODO("Not yet implemented")
     }
 

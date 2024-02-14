@@ -87,6 +87,7 @@ class EditAuctionFragment : Fragment() {
             override fun onItemSwipe(position: Int) {
                 // TODO CJW WORK Model 연결 필요
                 println("swipe $position")
+                viewModel.removeItem(position)
             }
         }))
         itemTouchHelper.attachToRecyclerView(cactusRecyclerView)
