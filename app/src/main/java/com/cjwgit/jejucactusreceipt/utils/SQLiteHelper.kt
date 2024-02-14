@@ -24,11 +24,16 @@ class SQLiteHelper(
                 "`amount` LONG NOT NULL," +
                 "`price` LONG NOT NULL);"
 
+        private const val CREATE_CACTUS_INDEX_SQL = "CREATE INDEX IF NOT EXISTS cactus_order_idx ON cactus_item(`order`);"
+        private const val CREATE_AUCTION_INDEX_SQL = "CREATE INDEX IF NOT EXISTS auction_order_idx ON auction_item(`order`);"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CACTUS_SQL)
         db.execSQL(AUCTION_SQL)
+
+        db.execSQL(CREATE_CACTUS_INDEX_SQL)
+        db.execSQL(CREATE_AUCTION_INDEX_SQL)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
