@@ -17,7 +17,7 @@ sealed class EditCactusFragmentUiState {
 }
 
 class EditCactusFragmentVM(
-    val cactusModel: CactusProductModel
+    private val cactusModel: CactusProductModel
 ) : BaseViewModel() {
     private val _uiState = MutableLiveData<EditCactusFragmentUiState>()
     val uiState: LiveData<EditCactusFragmentUiState> get() = _uiState
@@ -46,6 +46,18 @@ class EditCactusFragmentVM(
         }
     }
 
+    fun removeItem(position: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                cactusModel.removeItem(position)
+
+                refreshAdapter()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
     fun onClickAddButton() {
         viewModelScope.launch(exceptionHandler) {
             try {
@@ -53,7 +65,7 @@ class EditCactusFragmentVM(
                 val price = priceEditText.value!!.toLong()
 
                 cactusModel.addItem(CactusEntity(name, price))
-                
+
                 refreshAdapter()
                 resetEditText()
             } finally {
