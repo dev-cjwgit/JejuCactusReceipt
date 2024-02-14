@@ -8,7 +8,6 @@ interface BaseRepository<T> {
     fun addItem(item: T)
 
     fun removeItemToOrder(order: Int)
-    fun removeItemToUid(uid: Int)
 
     fun updateItem(item: T)
 }

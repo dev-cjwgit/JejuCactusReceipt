@@ -38,10 +38,6 @@ class CactusRepository(
         conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE  `order` > $order")
     }
 
-    override fun removeItemToUid(uid: Int) {
-        TODO("Not yet implemented")
-    }
-
     override fun updateItem(item: CactusEntity) {
         TODO("Not yet implemented")
     }
