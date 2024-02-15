@@ -46,6 +46,18 @@ class EditCactusFragmentVM(
         }
     }
 
+    fun swipe(from: Int, to: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                cactusModel.swipe(from, to)
+
+                refreshAdapter()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
     fun removeItem(position: Int) {
         viewModelScope.launch(exceptionHandler) {
             try {

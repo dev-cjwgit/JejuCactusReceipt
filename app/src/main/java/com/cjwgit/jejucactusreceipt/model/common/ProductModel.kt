@@ -10,5 +10,5 @@ interface ProductModel<T> {
 
     fun updateItem(item: T)
 
-    fun swipe(from: T, to: T)
+    fun swipe(from: Int, to: Int)
 }

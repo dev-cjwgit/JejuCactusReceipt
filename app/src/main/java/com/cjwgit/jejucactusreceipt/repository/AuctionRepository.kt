@@ -1,6 +1,8 @@
 package com.cjwgit.jejucactusreceipt.repository
 
 import com.cjwgit.jejucactusreceipt.domain.AuctionEntity
+import com.cjwgit.jejucactusreceipt.exec.CactusException
+import com.cjwgit.jejucactusreceipt.exec.ErrorMessage
 import com.cjwgit.jejucactusreceipt.repository.common.BaseRepository
 import com.cjwgit.jejucactusreceipt.utils.SQLiteHelper
 
@@ -8,6 +10,24 @@ class AuctionRepository(
     private val conn: SQLiteHelper
 ) : BaseRepository<AuctionEntity> {
     private val DB_NAME = "auction_item"
+    override fun swipeItem(from: Int, to: Int) {
+        val fromUid = conn.executeOne("SELECT `uid` FROM $DB_NAME WHERE `order` = $from")["uid"]?.toLong()
+        fromUid?.let {
+            if (from > to) {
+                // 항목 위로
+                conn.execute("UPDATE $DB_NAME SET `order` = `order` + 1 WHERE `order` BETWEEN $to AND ${from - 1}")
+                conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
+            } else if (from < to) {
+                // 항목 아래로
+                conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE `order` BETWEEN ${from + 1} AND $to")
+                conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
+            }
+        } ?: {
+            // from 항목이 존재하지 않음
+            throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
+        }
+    }
+
     override fun getItemToOrder(order: Int): AuctionEntity {
         val item = conn.executeOne("SELECT uid, order, name, amount, price FROM $DB_NAME WHERE order = $order;")
 

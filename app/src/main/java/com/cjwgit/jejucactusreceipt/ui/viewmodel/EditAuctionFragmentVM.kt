@@ -38,6 +38,18 @@ class EditAuctionFragmentVM(
         }
     }
 
+    fun swipe(from: Int, to: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                auctionModel.swipe(from, to)
+
+                refreshAdapter()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
     fun removeItem(position: Int) {
         viewModelScope.launch(exceptionHandler) {
             try {

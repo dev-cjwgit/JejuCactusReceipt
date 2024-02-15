@@ -19,8 +19,8 @@ class AuctionProductModel(
         repository.removeItemToOrder(position)
     }
 
-    override fun swipe(from: AuctionEntity, to: AuctionEntity) {
-        TODO("Not yet implemented")
+    override fun swipe(from: Int, to: Int) {
+        repository.swipeItem(from, to)
     }
 
     override fun updateItem(item: AuctionEntity) {

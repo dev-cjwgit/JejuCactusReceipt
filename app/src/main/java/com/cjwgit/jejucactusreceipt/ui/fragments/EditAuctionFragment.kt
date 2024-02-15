@@ -80,7 +80,8 @@ class EditAuctionFragment : Fragment() {
             override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
                 // TODO CJW WORK Model 연결 필요
                 println("move $fromPosition -> $toPosition")
-                cactusRecyclerViewAdapter.notifyItemMoved(fromPosition, toPosition)
+                viewModel.swipe(fromPosition, toPosition)
+//                cactusRecyclerViewAdapter.notifyItemMoved(fromPosition, toPosition)
                 return true
             }
 
