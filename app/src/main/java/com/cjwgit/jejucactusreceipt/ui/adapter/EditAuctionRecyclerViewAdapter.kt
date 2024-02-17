@@ -8,6 +8,10 @@ import com.cjwgit.jejucactusreceipt.domain.AuctionEntity
 import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseListAdapter
 
 class EditAuctionRecyclerViewAdapter : BaseListAdapter<TemplateAuctionBinding, AuctionEntity>() {
+    private lateinit var onClickListener: (item: AuctionEntity) -> Unit
+    fun setOnClickListener(listener: (item: AuctionEntity) -> Unit) {
+        onClickListener = listener
+    }
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -17,7 +21,7 @@ class EditAuctionRecyclerViewAdapter : BaseListAdapter<TemplateAuctionBinding, A
         val bind = TemplateAuctionBinding.bind(view)
         val holder = BaseViewHolder(bind)
         view.setOnClickListener {
-
+            onClickListener.invoke(getItem(holder.adapterPosition))
         }
         return holder
     }

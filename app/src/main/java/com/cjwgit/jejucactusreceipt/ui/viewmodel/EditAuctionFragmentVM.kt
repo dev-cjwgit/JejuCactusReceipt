@@ -26,6 +26,18 @@ class EditAuctionFragmentVM(
     val amountEditText = MutableLiveData<String>()
     val priceEditText = MutableLiveData<String>()
 
+    private var selectionCactusItem: AuctionEntity? = null
+
+    fun setCactusItem(item: AuctionEntity) {
+        viewModelScope.launch(exceptionHandler) {
+            selectionCactusItem = item
+
+            nameEditText.value = item.name
+            amountEditText.value = item.amount.toString()
+            priceEditText.value = item.price.toString()
+        }
+    }
+
     fun init() {
         viewModelScope.launch(exceptionHandler) {
             try {
@@ -60,6 +72,29 @@ class EditAuctionFragmentVM(
                 resetUiState()
             }
         }
+    }
+
+    fun onClickAddButton() {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                val name = nameEditText.value!!
+                val amount = amountEditText.value!!.toLong()
+                val price = priceEditText.value!!.toLong()
+
+                auctionModel.addItem(AuctionEntity(name, amount, price))
+
+                refreshAdapter()
+                resetEditText()
+            } finally {
+                resetUiState()
+            }
+        }
+    }
+
+    private fun resetEditText() {
+        nameEditText.value = ""
+        amountEditText.value = ""
+        priceEditText.value = ""
     }
 
     override fun handleException(exception: CactusException) {
