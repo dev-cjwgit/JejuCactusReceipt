@@ -7,8 +7,12 @@ import com.cjwgit.jejucactusreceipt.databinding.TemplateCactusBinding
 import com.cjwgit.jejucactusreceipt.domain.CactusEntity
 import com.cjwgit.jejucactusreceipt.ui.adapter.common.BaseListAdapter
 
-class EditCactusRecyclerViewAdapter(
-) : BaseListAdapter<TemplateCactusBinding, CactusEntity>() {
+class EditCactusRecyclerViewAdapter : BaseListAdapter<TemplateCactusBinding, CactusEntity>() {
+    private lateinit var onClickListener: (item: CactusEntity) -> Unit
+    fun setOnClickListener(listener: (item: CactusEntity) -> Unit) {
+        onClickListener = listener
+    }
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
@@ -18,7 +22,7 @@ class EditCactusRecyclerViewAdapter(
         val bind = TemplateCactusBinding.bind(view)
         val holder = BaseViewHolder(bind)
         view.setOnClickListener {
-
+            onClickListener.invoke(getItem(holder.adapterPosition))
         }
         return holder
     }

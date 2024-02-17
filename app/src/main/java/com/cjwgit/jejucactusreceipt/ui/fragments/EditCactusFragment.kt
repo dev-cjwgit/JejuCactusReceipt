@@ -39,7 +39,9 @@ class EditCactusFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         init()
-
+        cactusRecyclerViewAdapter.setOnClickListener { clickItem ->
+            viewModel.setCactusItem(clickItem)
+        }
         return binding.root
     }
 
@@ -79,14 +81,11 @@ class EditCactusFragment : Fragment() {
 
         val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(object : ItemTouchHelperListener {
             override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-                // TODO CJW WORK Model 연결 필요
                 viewModel.swipe(fromPosition, toPosition)
-//                cactusRecyclerViewAdapter.notifyItemMoved(fromPosition, toPosition)
                 return true
             }
 
             override fun onItemSwipe(position: Int) {
-                // TODO CJW WORK Model 연결 필요
                 println("swipe $position")
                 viewModel.removeItem(position)
             }

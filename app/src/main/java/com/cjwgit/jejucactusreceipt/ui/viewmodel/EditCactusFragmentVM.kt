@@ -22,9 +22,11 @@ class EditCactusFragmentVM(
     private val _uiState = MutableLiveData<EditCactusFragmentUiState>()
     val uiState: LiveData<EditCactusFragmentUiState> get() = _uiState
 
-
     val nameEditText = MutableLiveData<String>()
     val priceEditText = MutableLiveData<String>()
+
+    // 현재 선택된 선인장 항목
+    private var selectionCactusItem: CactusEntity? = null
 
     fun init() {
         viewModelScope.launch(exceptionHandler) {
@@ -35,6 +37,15 @@ class EditCactusFragmentVM(
             } finally {
                 resetUiState()
             }
+        }
+    }
+
+    fun setCactusItem(item: CactusEntity) {
+        viewModelScope.launch(exceptionHandler) {
+            selectionCactusItem = item
+
+            nameEditText.value = item.name
+            priceEditText.value = item.price.toString()
         }
     }
 
