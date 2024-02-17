@@ -125,6 +125,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             <include
+                android:id="@+id/include"
                 layout="@layout/layout_classic_dial_button"
                 android:layout_width="300dp"
                 android:layout_height="350dp"
