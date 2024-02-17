@@ -89,6 +89,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
+                    android:onClick="@{() -> viewModel.onClickAddButton()}"
                     android:text="확인"
                     android:textColor="@color/white"
                     android:textSize="20sp"
