@@ -29,7 +29,7 @@ class AuctionRepository(
     }
 
     override fun getItemToOrder(order: Int): AuctionEntity {
-        val item = conn.executeOne("SELECT uid, order, name, amount, price FROM $DB_NAME WHERE order = $order;")
+        val item = conn.executeOne("SELECT `uid`, `order`, `name`, `amount`, `price` FROM $DB_NAME WHERE `order` = $order;")
 
         return AuctionEntity(
             item["name"].toString(),
@@ -42,7 +42,7 @@ class AuctionRepository(
 
 
     override fun getItems(): List<AuctionEntity> {
-        val result = conn.executeAll("SELECT uid, order, name, amount, price FROM $DB_NAME ORDER BY `order` ASC;")
+        val result = conn.executeAll("SELECT `uid`, `order`, `name`, `amount`, `price` FROM $DB_NAME ORDER BY `order` ASC;")
 
         return result.map { item ->
             AuctionEntity(
@@ -65,7 +65,7 @@ class AuctionRepository(
     }
 
     override fun addItem(item: AuctionEntity) {
-        val order = conn.executeOne("SELECT COUNT(*) FROM $DB_NAME;")["count(*)"]?.toLong() ?: 0L
+        val order = conn.executeOne("SELECT COUNT(*) FROM $DB_NAME;")["COUNT(*)"]?.toLong() ?: 0L
 
         conn.execute(
             "INSERT INTO " +

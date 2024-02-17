@@ -29,7 +29,7 @@ class CactusRepository(
     }
 
     override fun getItemToOrder(order: Int): CactusEntity {
-        val item = conn.executeOne("SELECT uid, order, name, price FROM $DB_NAME WHERE order = $order;")
+        val item = conn.executeOne("SELECT `uid`, `order`, `name`, `price` FROM $DB_NAME WHERE `order` = $order;")
 
         return CactusEntity(
             item["name"].toString(),
