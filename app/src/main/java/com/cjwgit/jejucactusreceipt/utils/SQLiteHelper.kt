@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class SQLiteHelper(
     val context: Context
-) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION), AutoCloseable {
     companion object {
         private val DATABASE_NAME = FolderPath.ITEM_DB_PATH + "/data.db"
         private const val DATABASE_VERSION = 1
@@ -45,6 +45,7 @@ class SQLiteHelper(
 
     fun execute(sql: String) {
         val sqlite = writableDatabase
+        sqlite.beginTransaction()
         sqlite.execSQL(sql)
     }
 
@@ -77,5 +78,11 @@ class SQLiteHelper(
             }
         }
         return result
+    }
+
+    override fun close() {
+        val sqlite = writableDatabase
+        sqlite.setTransactionSuccessful()
+        sqlite.endTransaction()
     }
 }

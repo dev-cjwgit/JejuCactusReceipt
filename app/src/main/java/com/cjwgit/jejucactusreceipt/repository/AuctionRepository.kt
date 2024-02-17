@@ -11,20 +11,22 @@ class AuctionRepository(
 ) : BaseRepository<AuctionEntity> {
     private val DB_NAME = "auction_item"
     override fun swipeItem(from: Int, to: Int) {
-        val fromUid = conn.executeOne("SELECT `uid` FROM $DB_NAME WHERE `order` = $from")["uid"]?.toLong()
-        fromUid?.let {
-            if (from > to) {
-                // 항목 위로
-                conn.execute("UPDATE $DB_NAME SET `order` = `order` + 1 WHERE `order` BETWEEN $to AND ${from - 1}")
-                conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
-            } else if (from < to) {
-                // 항목 아래로
-                conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE `order` BETWEEN ${from + 1} AND $to")
-                conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
+        conn.use {
+            val fromUid = conn.executeOne("SELECT `uid` FROM $DB_NAME WHERE `order` = $from")["uid"]?.toLong()
+            fromUid?.let {
+                if (from > to) {
+                    // 항목 위로
+                    conn.execute("UPDATE $DB_NAME SET `order` = `order` + 1 WHERE `order` BETWEEN $to AND ${from - 1}")
+                    conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
+                } else if (from < to) {
+                    // 항목 아래로
+                    conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE `order` BETWEEN ${from + 1} AND $to")
+                    conn.execute("UPDATE $DB_NAME SET `order` = $to WHERE `uid` = $it")
+                }
+            } ?: {
+                // from 항목이 존재하지 않음
+                throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
             }
-        } ?: {
-            // from 항목이 존재하지 않음
-            throw CactusException(ErrorMessage.NOT_SELECT_ITEM)
         }
     }
 
@@ -56,22 +58,28 @@ class AuctionRepository(
     }
 
     override fun removeItemToOrder(order: Int) {
-        conn.execute("DELETE FROM $DB_NAME WHERE `order` = $order")
-        conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE  `order` > $order")
+        conn.use {
+            conn.execute("DELETE FROM $DB_NAME WHERE `order` = $order")
+            conn.execute("UPDATE $DB_NAME SET `order` = `order` - 1 WHERE  `order` > $order")
+        }
     }
 
     override fun updateItem(item: AuctionEntity) {
-        conn.execute("UPDATE $DB_NAME SET `name` = \"${item.name}\", `amount` = ${item.amount}, `price` = ${item.price} WHERE `uid` = ${item.uid}")
+        conn.use {
+            conn.execute("UPDATE $DB_NAME SET `name` = \"${item.name}\", `amount` = ${item.amount}, `price` = ${item.price} WHERE `uid` = ${item.uid}")
+        }
     }
 
     override fun addItem(item: AuctionEntity) {
-        val order = conn.executeOne("SELECT COUNT(*) FROM $DB_NAME;")["COUNT(*)"]?.toLong() ?: 0L
+        conn.use {
+            val order = conn.executeOne("SELECT COUNT(*) FROM $DB_NAME;")["COUNT(*)"]?.toLong() ?: 0L
 
-        conn.execute(
-            "INSERT INTO " +
-                    "$DB_NAME(`order`, `name`, `amount`, `price`) " +
-                    "VALUES " +
-                    "(${order}, \"${item.name}\",${item.amount}, ${item.price});"
-        )
+            conn.execute(
+                "INSERT INTO " +
+                        "$DB_NAME(`order`, `name`, `amount`, `price`) " +
+                        "VALUES " +
+                        "(${order}, \"${item.name}\",${item.amount}, ${item.price});"
+            )
+        }
     }
 }
