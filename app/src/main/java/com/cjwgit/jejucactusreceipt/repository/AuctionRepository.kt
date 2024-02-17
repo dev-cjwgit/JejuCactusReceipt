@@ -61,7 +61,7 @@ class AuctionRepository(
     }
 
     override fun updateItem(item: AuctionEntity) {
-        TODO("Not yet implemented")
+        conn.execute("UPDATE $DB_NAME SET `name` = \"${item.name}\", `amount` = ${item.amount}, `price` = ${item.price} WHERE `uid` = ${item.uid}")
     }
 
     override fun addItem(item: AuctionEntity) {

@@ -59,7 +59,7 @@ class CactusRepository(
     }
 
     override fun updateItem(item: CactusEntity) {
-        TODO("Not yet implemented")
+        conn.execute("UPDATE $DB_NAME SET `name` = \"${item.name}\", `price` = ${item.price} WHERE `uid` = ${item.uid}")
     }
 
     override fun addItem(item: CactusEntity) {

@@ -24,7 +24,7 @@ class AuctionProductModel(
     }
 
     override fun updateItem(item: AuctionEntity) {
-        TODO("Not yet implemented")
+        repository.updateItem(item)
     }
 
     override fun addItem(item: AuctionEntity) {

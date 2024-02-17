@@ -26,11 +26,12 @@ class EditAuctionFragmentVM(
     val amountEditText = MutableLiveData<String>()
     val priceEditText = MutableLiveData<String>()
 
-    private var selectionCactusItem: AuctionEntity? = null
+    val selectionCactusItem = MutableLiveData<AuctionEntity?>()
+
 
     fun setCactusItem(item: AuctionEntity) {
         viewModelScope.launch(exceptionHandler) {
-            selectionCactusItem = item
+            selectionCactusItem.value = item
 
             nameEditText.value = item.name
             amountEditText.value = item.amount.toString()
@@ -80,9 +81,14 @@ class EditAuctionFragmentVM(
                 val name = nameEditText.value!!
                 val amount = amountEditText.value!!.toLong()
                 val price = priceEditText.value!!.toLong()
-
-                auctionModel.addItem(AuctionEntity(name, amount, price))
-
+                if(selectionCactusItem.value == null) {
+                    // 항목 추가
+                    auctionModel.addItem(AuctionEntity(name, amount, price))
+                } else {
+                    // 항목 수정
+                    val uid = selectionCactusItem.value!!.uid
+                    auctionModel.updateItem(AuctionEntity(name, amount, price, uid))
+                }
                 refreshAdapter()
                 resetEditText()
             } finally {
@@ -92,6 +98,8 @@ class EditAuctionFragmentVM(
     }
 
     private fun resetEditText() {
+        selectionCactusItem.value = null
+
         nameEditText.value = ""
         amountEditText.value = ""
         priceEditText.value = ""
@@ -101,6 +109,16 @@ class EditAuctionFragmentVM(
         when (exception.errorMessage.code) {
             else -> {
                 _uiState.value = exception.message?.let { EditAuctionFragmentUiState.ShowMessage(it) }
+            }
+        }
+    }
+
+    fun onClickCancelButton() {
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                resetEditText()
+            } finally {
+                resetUiState()
             }
         }
     }

@@ -24,7 +24,7 @@ class CactusProductModel(
     }
 
     override fun updateItem(item: CactusEntity) {
-        TODO("Not yet implemented")
+        repository.updateItem(item)
     }
 
 

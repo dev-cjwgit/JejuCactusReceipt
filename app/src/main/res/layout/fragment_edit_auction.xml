@@ -90,7 +90,7 @@
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
                     android:onClick="@{() -> viewModel.onClickAddButton()}"
-                    android:text="확인"
+                    android:text='@{viewModel.selectionCactusItem == null ? "추가" : "수정", default="추가"}'
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -102,6 +102,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@color/blueFacebook"
+                    android:onClick="@{() -> viewModel.onClickCancelButton()}"
                     android:text="취소"
                     android:textColor="@color/white"
                     android:textSize="20sp"
