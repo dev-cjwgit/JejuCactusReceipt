@@ -7,27 +7,27 @@ import com.cjwgit.jejucactusreceipt.repository.AuctionRepository
 class AuctionProductModel(
     private val repository: AuctionRepository
 ) : ProductModel<AuctionEntity> {
-    override fun getItem(position: Int): AuctionEntity {
+    override suspend fun getItem(position: Int): AuctionEntity {
         return repository.getItemToOrder(position)
     }
 
-    override fun getItems(): List<AuctionEntity> {
+    override suspend fun getItems(): List<AuctionEntity> {
         return repository.getItems()
     }
 
-    override fun removeItem(position: Int) {
+    override suspend fun removeItem(position: Int) {
         repository.removeItemToOrder(position)
     }
 
-    override fun swipe(from: Int, to: Int) {
+    override suspend fun swipe(from: Int, to: Int) {
         repository.swipeItem(from, to)
     }
 
-    override fun updateItem(item: AuctionEntity) {
+    override suspend fun updateItem(item: AuctionEntity) {
         repository.updateItem(item)
     }
 
-    override fun addItem(item: AuctionEntity) {
+    override suspend fun addItem(item: AuctionEntity) {
         repository.addItem(item)
     }
 }

@@ -113,7 +113,13 @@ class EditCactusFragmentVM(
     }
 
     private fun refreshAdapter() {
-        _uiState.value = EditCactusFragmentUiState.SetCactusList(cactusModel.getItems())
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                _uiState.value = EditCactusFragmentUiState.SetCactusList(cactusModel.getItems())
+            } finally {
+                resetUiState()
+            }
+        }
     }
 
     private fun resetEditText() {

@@ -81,7 +81,7 @@ class EditAuctionFragmentVM(
                 val name = nameEditText.value!!
                 val amount = amountEditText.value!!.toLong()
                 val price = priceEditText.value!!.toLong()
-                if(selectionCactusItem.value == null) {
+                if (selectionCactusItem.value == null) {
                     // 항목 추가
                     auctionModel.addItem(AuctionEntity(name, amount, price))
                 } else {
@@ -124,7 +124,13 @@ class EditAuctionFragmentVM(
     }
 
     private fun refreshAdapter() {
-        _uiState.value = EditAuctionFragmentUiState.SetCactusList(auctionModel.getItems())
+        viewModelScope.launch(exceptionHandler) {
+            try {
+                _uiState.value = EditAuctionFragmentUiState.SetCactusList(auctionModel.getItems())
+            } finally {
+                resetUiState()
+            }
+        }
     }
 
     private fun resetUiState() {

@@ -1,15 +1,15 @@
 package com.cjwgit.jejucactusreceipt.repository.common
 
 interface BaseRepository<T> {
-    fun swipeItem(from: Int, to: Int)
+    suspend fun swipeItem(from: Int, to: Int)
 
-    fun getItemToOrder(order: Int): T
+    suspend fun getItemToOrder(order: Int): T
 
-    fun getItems(): List<T>
+    suspend fun getItems(): List<T>
 
-    fun addItem(item: T)
+    suspend fun addItem(item: T)
 
-    fun removeItemToOrder(order: Int)
+    suspend fun removeItemToOrder(order: Int)
 
-    fun updateItem(item: T)
+    suspend fun updateItem(item: T)
 }

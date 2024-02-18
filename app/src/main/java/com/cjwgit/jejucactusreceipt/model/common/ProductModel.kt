@@ -1,14 +1,14 @@
 package com.cjwgit.jejucactusreceipt.model.common
 
 interface ProductModel<T> {
-    fun getItem(position: Int): T
-    fun getItems(): List<T>
+    suspend fun getItem(position: Int): T
+    suspend fun getItems(): List<T>
 
-    fun addItem(item: T)
+    suspend fun addItem(item: T)
 
-    fun removeItem(position: Int)
+    suspend fun removeItem(position: Int)
 
-    fun updateItem(item: T)
+    suspend fun updateItem(item: T)
 
-    fun swipe(from: Int, to: Int)
+    suspend fun swipe(from: Int, to: Int)
 }
