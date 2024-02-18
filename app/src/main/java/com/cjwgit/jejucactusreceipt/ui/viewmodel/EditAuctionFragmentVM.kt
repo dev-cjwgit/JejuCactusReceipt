@@ -26,18 +26,9 @@ class EditAuctionFragmentVM(
     val amountEditText = MutableLiveData<String>()
     val priceEditText = MutableLiveData<String>()
 
+    // 현재 선택된 선인장 항목
     val selectionCactusItem = MutableLiveData<AuctionEntity?>()
 
-
-    fun setCactusItem(item: AuctionEntity) {
-        viewModelScope.launch(exceptionHandler) {
-            selectionCactusItem.value = item
-
-            nameEditText.value = item.name
-            amountEditText.value = item.amount.toString()
-            priceEditText.value = item.price.toString()
-        }
-    }
 
     fun init() {
         viewModelScope.launch(exceptionHandler) {
@@ -48,6 +39,16 @@ class EditAuctionFragmentVM(
             } finally {
                 resetUiState()
             }
+        }
+    }
+
+    fun setCactusItem(item: AuctionEntity) {
+        viewModelScope.launch(exceptionHandler) {
+            selectionCactusItem.value = item
+
+            nameEditText.value = item.name
+            amountEditText.value = item.amount.toString()
+            priceEditText.value = item.price.toString()
         }
     }
 
@@ -97,22 +98,6 @@ class EditAuctionFragmentVM(
         }
     }
 
-    private fun resetEditText() {
-        selectionCactusItem.value = null
-
-        nameEditText.value = ""
-        amountEditText.value = ""
-        priceEditText.value = ""
-    }
-
-    override fun handleException(exception: CactusException) {
-        when (exception.errorMessage.code) {
-            else -> {
-                _uiState.value = exception.message?.let { EditAuctionFragmentUiState.ShowMessage(it) }
-            }
-        }
-    }
-
     fun onClickCancelButton() {
         viewModelScope.launch(exceptionHandler) {
             try {
@@ -133,7 +118,23 @@ class EditAuctionFragmentVM(
         }
     }
 
+    private fun resetEditText() {
+        selectionCactusItem.value = null
+
+        nameEditText.value = ""
+        amountEditText.value = ""
+        priceEditText.value = ""
+    }
+
     private fun resetUiState() {
         _uiState.postValue(EditAuctionFragmentUiState.Nothing)
+    }
+
+    override fun handleException(exception: CactusException) {
+        when (exception.errorMessage.code) {
+            else -> {
+                _uiState.value = exception.message?.let { EditAuctionFragmentUiState.ShowMessage(it) }
+            }
+        }
     }
 }
